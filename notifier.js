@@ -637,7 +637,7 @@ function tbnoti() {
                 $('#mail').attr('class', 'nohavemail');
                 $('#mail').attr('title', 'no new mail!');
                 $('#mail').attr('href', 'http://www.reddit.com/message/inbox/');
-                $('#mailcount').attr('href', 'http://www.reddit.com' + messageunreadurl);
+                $('#mailCount').attr('href', 'http://www.reddit.com' + messageunreadurl);
                 $('#tb-mail').attr('class', 'nohavemail');
                 $('#tb-mail').attr('title', 'no new mail!');
                 $('#tb-mail').attr('href', 'http://www.reddit.com/message/inbox/');
@@ -646,7 +646,7 @@ function tbnoti() {
                 $('#mail').attr('class', 'havemail');
                 $('#mail').attr('title', 'new mail!');
                 $('#mail').attr('href', 'http://www.reddit.com' + messageunreadurl);
-                $('#mailcount').attr('href', 'http://www.reddit.com' + messageunreadurl);
+                $('#mailCount').attr('href', 'http://www.reddit.com' + messageunreadurl);
                 $('#tb-mail').attr('class', 'havemail');
                 $('#tb-mail').attr('title', 'new mail!');
                 $('#tb-mail').attr('href', 'http://www.reddit.com' + messageunreadurl);
