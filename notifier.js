@@ -632,31 +632,37 @@ function tbnoti() {
         //
 
         function updateMessagesCount(count) {
-            if (count < 1) {
+            // Get the last count, if it's not available, default to the current count
+            // We rely on the first load's #mail.class for determining if there's new mail then
+            var lastcount = TBUtils.setting('Notifier', 'lastunreadmessagecount', '');
+            if (lastcount !== '') {
+                if (count > lastcount) {
+                    $('#mail').attr('class', 'havemail');
+                    $('#mail').attr('title', 'new mail!');
+                    $('#mail').attr('href', 'http://www.reddit.com' + messageunreadurl);
+                    $('#mailCount').attr('href', 'http://www.reddit.com' + messageunreadurl);
+                } else {
+                    $('#mail').attr('class', 'nohavemail');
+                    $('#mail').attr('title', 'no new mail');
+                    $('#mail').attr('href', 'http://www.reddit.com/message/inbox/');
+                    $('#mailCount').attr('href', 'http://www.reddit.com/message/inbox/');
+                }
+            }
+            if ($('#mail').attr('class') === 'nohavemail') {
                 $('#mailCount').empty();
-                $('#mail').attr('class', 'nohavemail');
-                $('#mail').attr('title', 'no new mail!');
-                $('#mail').attr('href', 'http://www.reddit.com/message/inbox/');
-                $('#mailCount').attr('href', 'http://www.reddit.com' + messageunreadurl);
-                $('#tb-mail').attr('class', 'nohavemail');
-                $('#tb-mail').attr('title', 'no new mail!');
-                $('#tb-mail').attr('href', 'http://www.reddit.com/message/inbox/');
-                $('#tb-mailCount').attr('href', 'http://www.reddit.com/message/inbox/');
+                $('#tb-mail').attr('class', $('#mail').attr('class'));
+                $('#tb-mail').attr('title', $('#mail').attr('title'));
+                $('#tb-mail').attr('href', $('#mail').attr('href'));
+                $('#tb-mailCount').attr('href', $('#mailcount').attr('href'));
+                $('#tb-mailCount').text('[' + count + ']');
             } else {
-                $('#mail').attr('class', 'havemail');
-                $('#mail').attr('title', 'new mail!');
-                $('#mail').attr('href', 'http://www.reddit.com' + messageunreadurl);
-                $('#mailCount').attr('href', 'http://www.reddit.com' + messageunreadurl);
-                $('#tb-mail').attr('class', 'havemail');
-                $('#tb-mail').attr('title', 'new mail!');
-                $('#tb-mail').attr('href', 'http://www.reddit.com' + messageunreadurl);
-                $('#tb-mailCount').attr('href', 'http://www.reddit.com' + messageunreadurl);
+                $('#tb-mail').attr('class', $('#mail').attr('class'));
+                $('#tb-mail').attr('title', $('#mail').attr('title'));
+                $('#tb-mail').attr('href', $('#mail').attr('href'));
+                $('#tb-mailCount').attr('href', $('#mailcount').attr('href'));
+                $('#tb-mailCount').text('[' + count + ']');
             }
-            $('#tb-mailCount').text('[' + count + ']');
-
-            if (count > 0) {
-                $('#mailCount').text('[' + count + ']');
-            }
+            TBUtils.setting('Notifier', 'lastunreadmessagecount', '', count);
         }
 
         function updateModqueueCount(count) {
