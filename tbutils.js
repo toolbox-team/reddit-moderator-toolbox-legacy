@@ -34,8 +34,8 @@ function initwrapper() {
         ECHO = 'echo', TB_KEY = 'Toolbox.';
 
     // Public variables
-    TBUtils.toolboxVersion = '3.0.2' + ((betaRelease) ? ' (beta)' : '');
-    TBUtils.shortVersion = 302; //don't forget to change this one!  This is used for the 'new version' notification.
+    TBUtils.toolboxVersion = '3.0.3' + ((betaRelease) ? ' (beta)' : '');
+    TBUtils.shortVersion = 303; //don't forget to change this one!  This is used for the 'new version' notification.
     TBUtils.releaseName = 'Illuminati Ibis';
     TBUtils.configSchema = 1;
     TBUtils.notesSchema = 4;
