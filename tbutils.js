@@ -34,8 +34,8 @@ function initwrapper() {
         ECHO = 'echo', TB_KEY = 'Toolbox.';
 
     // Public variables
-    TBUtils.toolboxVersion = '3.0.3' + ((betaRelease) ? ' (beta)' : '');
-    TBUtils.shortVersion = 303; //don't forget to change this one!  This is used for the 'new version' notification.
+    TBUtils.toolboxVersion = '3.0.4' + ((betaRelease) ? ' (beta)' : '');
+    TBUtils.shortVersion = 304; //don't forget to change this one!  This is used for the 'new version' notification.
     TBUtils.releaseName = 'Illuminati Ibis';
     TBUtils.configSchema = 1;
     TBUtils.notesSchema = 4;
@@ -126,16 +126,16 @@ function initwrapper() {
         TBStorage.setSetting('Utils', 'seenNotes', seenNotes);
     }
 
-
+/*  Don't do any version changes for 3.0.4
     // First run changes.
     if (TBUtils.shortVersion > lastVersion) {
         TBUtils.firstRun = true; // for use by other modules.
         TBStorage.setSetting('Utils', 'lastVersion', TBUtils.shortVersion); //set last version to this version.
 
-        //** This should be a per-release section of stuff we want to change in each update.  Like setting/converting data/etc.  It should always be removed before the next release. **//
+
 
         // Start: version changes.
-        /* TBUtils.[get/set]Setting IS NOT DEFINDED YET!!!  Use TBStorage.[get/set]settings */
+
 
         // 3.0.1 version changes
         $.log('Running ' + TBUtils.toolboxVersion + ' changes', true, 'TBUtils');
@@ -159,7 +159,7 @@ function initwrapper() {
         TBUtils.debugMode = false;
         TBUtils.betaMode = false;
     }
-
+*/
 
     if (TBUtils.debugMode) {
         var consoleText = 'Toolbox version: ' + TBUtils.toolboxVersion +
