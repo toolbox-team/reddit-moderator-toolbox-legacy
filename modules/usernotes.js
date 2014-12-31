@@ -305,14 +305,11 @@ usernotes.init = function () {
         });
     }
 
-    // Processing!
-    
     // NER support.
     window.addEventListener("TBNewThings", function () {
         run();
     });
 
-    // Process a thing on the page in which to display notes
     function processThing(thing) {
 
         if ($(thing).hasClass('ut-processed')) {
@@ -347,9 +344,6 @@ usernotes.init = function () {
         }
     }
 
-    // Loading!
-    
-    // Load notes from the given subreddit
     function processSub(currsub) {
         if (TBUtils.noteCache[currsub] !== undefined) {
             setNotes(TBUtils.noteCache[currsub], currsub);
@@ -467,15 +461,15 @@ usernotes.init = function () {
 
     // Decompress notes from the database into a more useful format
     function inflateNotes(deflated) {
-        var inflated = {
-            ver: deflated.ver,
+        var notes = {
+            ver: TBUtils.notesSchema,
             users: {}
         };
 
         var mgr = new ConstManager(deflated.constants);
 
         $.each(deflated.users, function (name, user) {
-            inflated.users[name] = {
+            notes.users[name] = {
                 "name": name,
                 "notes": user.ns.map(function (note) {
                     return inflateNote(deflated.ver, mgr, note);
@@ -483,7 +477,7 @@ usernotes.init = function () {
             };
         });
 
-        return inflated;
+        return notes;
     }
 
     // Decompress notes from the database into a more useful format (MIGRATION ONLY)
@@ -538,25 +532,17 @@ usernotes.init = function () {
     }
 
     function setNotes(notes, subreddit) {
-        // Check if the version of loaded notes is within the supported versions
-        if (notes.ver < TBUtils.notesMinSchema || notes.ver > TBUtils.notesMaxSchema) {
-            usernotes.log("Failed usernotes version check:");
-            usernotes.log("\tnotes.ver: "+notes.ver);
-            usernotes.log("\tTBUtils.notesSchema: "+TBUtils.notesSchema);
-            usernotes.log("\tTBUtils.notesMinSchema: "+TBUtils.notesMinSchema);
-            usernotes.log("\tTBUtils.notesMaxSchema: "+TBUtils.notesMaxSchema);
-            
-            // Remove the option to add notes
-            $('.usernote-span-' + subreddit).remove();
-            
-            // Alert the user
-            var msg = notes.ver > TBUtils.notesMaxSchema ?
-                "You are using a version of toolbox that cannot read a newer usernote data format. Please update your extension." :
-                "You are using a version of toolbox that cannot read an old usernote data format, schema v"+notes.ver+".";
+        //$.log("notes = " + notes);
+        //$.log("notes.ver = " + notes.ver);
 
-            TBUtils.alert(msg, function (clicked) {
-                if (clicked)
-                    window.open("/r/toolbox/wiki/download");
+        // schema check.
+        if (notes.ver > TBUtils.notesSchema) {
+
+            // Remove the option to add notes.
+            $('.usernote-span-' + subreddit).remove();
+
+            TBUtils.alert("You are using a version of toolbox that cannot read a newer usernote data format.  Please update your extension.", function (clicked) {
+                if (clicked) window.open("/r/toolbox/wiki/download");
             });
             return;
         }
