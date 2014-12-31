@@ -39,7 +39,8 @@ function initwrapper() {
     TBUtils.releaseName = 'Illuminati Ibis';
     TBUtils.configSchema = 1;
     TBUtils.notesSchema = 4;
-    TBUtils.minNotesSchema = 0;
+    TBUtils.notesMinSchema = 2;
+    TBUtils.notesMaxSchema = 5;     // The non-default max version (to allow phase-in schema releases)
     TBUtils.NO_WIKI_PAGE = 'NO_WIKI_PAGE';
     TBUtils.WIKI_PAGE_UNKNOWN = 'WIKI_PAGE_UNKNOWN';
     TBUtils.isModmail = location.pathname.match(/\/message\/(?:moderator)\/?/);
