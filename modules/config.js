@@ -113,10 +113,10 @@ tbconfig.init = function () {
                         </td>\
                         </tr><tr>\
                         <td>Header:</td>\
-                        <td><textarea class="edit-header" >' + TBUtils.htmlEncode(unescape(configData.removalReasons.header ? configData.removalReasons.header : '')) + '</textarea></td>\
+                        <td><textarea class="edit-header" >' + TBUtils.htmlEncode(decodeURIComponent(configData.removalReasons.header ? configData.removalReasons.header : '')) + '</textarea></td>\
                         </tr><tr>\
                         <td>Footer:</td>\
-                        <td><textarea class="edit-footer" >' + TBUtils.htmlEncode(unescape(configData.removalReasons.footer ? configData.removalReasons.footer : '')) + '</textarea></td>\
+                        <td><textarea class="edit-footer" >' + TBUtils.htmlEncode(decodeURIComponent(configData.removalReasons.footer ? configData.removalReasons.footer : '')) + '</textarea></td>\
                         </tr>\
                     </table>',
                     footer: '<input class="save-removal-settings" type="button" value="Save removal reasons settings">'
@@ -362,7 +362,7 @@ tbconfig.init = function () {
 
                 var i = 0;
                 $(config.removalReasons.reasons).each(function () {
-                    var label = unescape(this.text);
+                    var label = decodeURIComponent(this.text);
                     if (label == '') {
                         label = '<span style="color: #cecece">(no reason)</span>';
                     } else {
@@ -372,7 +372,7 @@ tbconfig.init = function () {
                         label = TBUtils.htmlEncode(label);
                     }
 
-                    var removalReasonText = unescape(config.removalReasons.reasons[i].text) || '',
+                    var removalReasonText = decodeURIComponent(config.removalReasons.reasons[i].text) || '',
                         removalReasonTitle = config.removalReasons.reasons[i].title || '',
                         removalReasonFlairText = config.removalReasons.reasons[i].flairText || '',
                         removalReasonFlairCSS = config.removalReasons.reasons[i].flairCSS || '';
@@ -424,7 +424,7 @@ tbconfig.init = function () {
             if (config.modMacros && config.modMacros.length > 0) {
 
                 $(config.modMacros).each(function (i, item) {
-                    var label = unescape(item.text);
+                    var label = decodeURIComponent(item.text);
                     if (label == '') {
                         label = '<span style="color: #cecece">(no macro)</span>';
                     } else {
@@ -433,7 +433,7 @@ tbconfig.init = function () {
                         }
                         label = TBUtils.htmlEncode(label);
                     }
-                    var modMacroText = unescape(config.modMacros[i].text) || '',
+                    var modMacroText = decodeURIComponent(config.modMacros[i].text) || '',
                         modMacroTitle = config.modMacros[i].title || '';
 
                     var modMacroTemplate = '\
@@ -597,7 +597,7 @@ tbconfig.init = function () {
             $removalContent = $this.closest('td.removal-reasons-content'),
             reasonsNum = $removalContent.attr('data-reason');
 
-        $removalContent.find('.edit-area').val(unescape(config.removalReasons.reasons[reasonsNum].text) || '<span style="color: #cecece">(no macro)</span>');
+        $removalContent.find('.edit-area').val(decodeURIComponent(config.removalReasons.reasons[reasonsNum].text) || '<span style="color: #cecece">(no macro)</span>');
         $removalContent.find('input[name=removal-title]').val(config.removalReasons.reasons[reasonsNum].title || '');
         $removalContent.find('input[name=flair-text]').val(config.removalReasons.reasons[reasonsNum].flairText || '');
         $removalContent.find('input[name=flair-css]').val(config.removalReasons.reasons[reasonsNum].flairCSS || '');
@@ -636,7 +636,7 @@ tbconfig.init = function () {
             delete TBUtils.configCache[subreddit]; // should this use TBUtils.clearCache?  I'm not clear on what this does. -al
         }
 
-        var label = unescape(reasonText);
+        var label = decodeURIComponent(reasonText);
         if (label == '') {
             label = '<span style="color: #cecece">(no reason)</span>';
         } else {
@@ -779,7 +779,7 @@ tbconfig.init = function () {
             $macroContent = $this.closest('td.mod-macros-content'),
             reasonsNum = $macroContent.attr('data-macro');
 
-        $macroContent.find('.edit-area').val(unescape(config.modMacros[reasonsNum].text) || '<span style="color: #cecece">(no macro)</span>');
+        $macroContent.find('.edit-area').val(decodeURIComponent(config.modMacros[reasonsNum].text) || '<span style="color: #cecece">(no macro)</span>');
         $macroContent.find('input[name=macro-title]').val(config.modMacros[reasonsNum].title || '');
         $macroContent.find('input[name=edit-note]').val('');
 
@@ -810,7 +810,7 @@ tbconfig.init = function () {
             delete TBUtils.configCache[subreddit]; // should this use TBUtils.clearCache?  I'm not clear on what this does. -al
         }
 
-        var label = unescape(macroText);
+        var label = decodeURIComponent(macroText);
 
         if (label == '') {
             label = '<span style="color: #cecece">(no macro)</span>';
