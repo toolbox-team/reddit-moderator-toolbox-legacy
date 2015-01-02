@@ -454,7 +454,7 @@ modmail.modmailpro = function () {
                 count = count.toString() + '+';
                 moreCommentThreads.push(threadID);
             }
-            $('<span class="message-count">' + count + ' </span>' + spacer).appendTo($infoArea);
+            $('<span class="tb-message-count">' + count + ' </span>' + spacer).appendTo($infoArea);
         } else {
             unansweredThreads.push(threadID);
 
