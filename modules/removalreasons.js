@@ -172,8 +172,8 @@ removal.register_setting('reasonAsSub', {
                 // Add additional data that is found in the wiki JSON.
                 // Any HTML needs to me unescaped, because we store it escaped in the wiki.
                 data.logReason = response.logreason || '';
-                data.header = decodeURIComponent(response.header || '');
-                data.footer = decodeURIComponent(response.footer || '');
+                data.header = unescape(response.header || '');
+                data.footer = unescape(response.footer || '');
                 data.logSub = response.logsub || '';
                 data.logTitle = response.logtitle || DEFAULT_LOG_TITLE;
                 data.banTitle = response.bantitle || DEFAULT_BAN_TITLE;
@@ -182,7 +182,7 @@ removal.register_setting('reasonAsSub', {
                 data.reasons = [];
                 $(response.reasons).each(function () {
                     data.reasons.push({
-                        text: decodeURIComponent(this.text),
+                        text: unescape(this.text),
                         title: this.title,
                         flairText: this.flairText,
                         flairCSS: this.flairCSS
