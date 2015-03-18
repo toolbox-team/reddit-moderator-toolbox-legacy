@@ -22,9 +22,11 @@ self.register_setting('confirmNuke', {
     'title': 'Show a confirmation window before nuking a comment chain'
 });
 
+self.findRemoveButton = 'form input[name="spam"][value="False"]~span.option.error a.yes,a[onclick^="return big_mod_action($(this), -1)"]';
+
 self.init = function () {
     delete_function = function (thread_root) {
-        var elmnts = document.getElementsByClassName('id-' + thread_root)[0].querySelectorAll('form input[value="removed"]~span.option.error a.yes,a[onclick^="return big_mod_action($(this), -1)"]');
+        var elmnts = document.getElementsByClassName('id-' + thread_root)[0].querySelectorAll(self.findRemoveButton);
         var $rootElmnt = $(elmnts[0]).closest('.thing');
         TB.ui.longLoadSpinner(true, 'removing comments', 'neutral');
         for (var i = 0; i < elmnts.length; i++) {
@@ -98,7 +100,7 @@ self.init = function () {
                             if (continue_thread.length > 0) {
                                 comment_str = "+ comments (more after expanding collapsed threads; there will be a pause before the first deletion to retrieve more comments)?";
                             }
-                            var delete_button = divels[_i].querySelectorAll('form input[value="removed"]~span.option.error a.yes,a[onclick^="return big_mod_action($(this), -1)"]');
+                            var delete_button = divels[_i].querySelectorAll(self.findRemoveButton);
                             // form input[value="removed"]~span.option.error a.yes -- finds the yes for normal deleting comments.
                             // a.pretty-button.neutral finds the 'remove' button for flagged comments
 
