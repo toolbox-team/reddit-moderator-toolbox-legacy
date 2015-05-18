@@ -9,12 +9,12 @@
       <string>com.reddit.toolbox</string>
       <key>Developer Identifier</key>
       <string>42X34WDLP5</string>
-      <key>CFBundleVersion</key>
-      <string>8</string>
       <key>CFBundleShortVersionString</key>
-      <string>3.0.5</string>
+      <string>3.1</string>
+      <key>CFBundleVersion</key>
+      <string>9</string>
       <key>URL</key>
-      <string>http://creesch.github.io/reddit-moderator-toolbox/downloads/reddit_mod_tb_305.safariextz</string>
+      <string>http://creesch.github.io/reddit-moderator-toolbox/downloads/moderator-toolbox-reddit-3.1.safariextz</string>
     </dict>
   </array>
 </dict>
