@@ -69,8 +69,8 @@ function initwrapper() {
     TBUtils.browsers = TBStorage.browsers;
 
     // Public variables
-    TBUtils.toolboxVersion = '3.1.0' + ((betaRelease) ? ' (beta)' : '');
-    TBUtils.shortVersion = 310; //don't forget to change this one!  This is used for the 'new version' notification.
+    TBUtils.toolboxVersion = '3.1.1' + ((betaRelease) ? ' (beta)' : '');
+    TBUtils.shortVersion = 311; //don't forget to change this one!  This is used for the 'new version' notification.
     TBUtils.releaseName = 'Valuing Vulture';
     TBUtils.configSchema = 1;
     TBUtils.notesSchema = 5;
@@ -185,34 +185,9 @@ function initwrapper() {
         // Start: version changes.
         /* TBUtils.[get/set]Setting IS NOT DEFINDED YET!!!  Use TBStorage.[get/set]settings */
 
-        // 3.1 version changes
-        $.log('Running ' + TBUtils.toolboxVersion + ' changes', true, SHORTNAME);
+        // 3.1.1 version changes
 
-        var botCheck = TBStorage.getSetting('QueueTools', 'botCheckmark', ['AutoModerator']),
-            index = botCheck.indexOf('automoderator');
-        if (index > -1) {
-            botCheck[index] = 'AutoModerator';
-            TBStorage.setSetting('QueueTools', 'botCheckmark', botCheck);
-        }
-
-        // no longer used.
-        localStorage.removeItem('Toolbox.UserNotes.unManager');
-
-        // MMP use to store filtered subs in lower case.  We should not.
-        TBStorage.setSetting('ModMail', 'filteredSubs', []);
-
-        // Re-enable MMP by default
-        TBStorage.setSetting('ModMail', 'enabled', true);
-
-        // enable autoload by default.
-        TBStorage.setSetting('ModMail', 'autoLoad', true);
-
-        // 'stattit tab' is now 'metrics tab'.  Migrate enabled, delete old key.
-        TBStorage.setSetting('Metrics', 'enabled', TBStorage.getSetting('Stattit', 'enabled', true));
-        localStorage.removeItem('Toolbox.Stattit.enabled');
-
-        // Enable macros by default
-        TBStorage.setSetting('ModMacros', 'enabled', true);
+        // NO CHANGES
 
         // End: version changes.
 
