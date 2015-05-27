@@ -69,8 +69,8 @@ function initwrapper() {
     TBUtils.browsers = TBStorage.browsers;
 
     // Public variables
-    TBUtils.toolboxVersion = '3.1.1' + ((betaRelease) ? ' (beta)' : '');
-    TBUtils.shortVersion = 311; //don't forget to change this one!  This is used for the 'new version' notification.
+    TBUtils.toolboxVersion = '3.1.2' + ((betaRelease) ? ' (beta)' : '');
+    TBUtils.shortVersion = 312; //don't forget to change this one!  This is used for the 'new version' notification.
     TBUtils.releaseName = 'Valuing Vulture';
     TBUtils.configSchema = 1;
     TBUtils.notesSchema = 5;
