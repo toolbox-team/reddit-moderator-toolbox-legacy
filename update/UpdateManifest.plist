@@ -10,11 +10,11 @@
       <key>Developer Identifier</key>
       <string>42X34WDLP5</string>
       <key>CFBundleShortVersionString</key>
-      <string>3.1</string>
+      <string>3.1.2</string>
       <key>CFBundleVersion</key>
-      <string>9</string>
+      <string>312</string>
       <key>URL</key>
-      <string>http://creesch.github.io/reddit-moderator-toolbox/downloads/moderator-toolbox-reddit-3.1.safariextz</string>
+      <string>https://github.com/creesch/reddit-moderator-toolbox/releases/download/V3.1.2/reddit-moderator-toolbox-3.1.2.safariextz</string>
     </dict>
   </array>
 </dict>
