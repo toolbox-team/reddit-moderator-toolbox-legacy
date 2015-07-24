@@ -1127,6 +1127,7 @@ function initwrapper() {
             var ratelimitRemaining = jqxhr.getResponseHeader('x-ratelimit-remaining'),
                 ratelimitReset = jqxhr.getResponseHeader('x-ratelimit-reset');
             $.log('ratelimitRemaining: ' + ratelimitRemaining + ' ratelimitReset: ' + (ratelimitReset / 60), false, SHORTNAME);
+            TBUtils.rateLimit = ratelimitRemaining;
 
             callback({
                 'ratelimitRemaining': ratelimitRemaining,
@@ -1859,7 +1860,7 @@ function initwrapper() {
 
     // get rate limit
     (function getRateLimit() {
-        TBUtils.rateLimit = TBUtils.getRatelimit();
+        TBUtils.getRatelimit();
     })();
 
 }(TBUtils = window.TBUtils || {}));
