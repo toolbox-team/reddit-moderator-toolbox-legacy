@@ -67,8 +67,8 @@ function initwrapper() {
 
 
     // Public variables
-    TBUtils.toolboxVersion = '3.2.0' + ((betaRelease) ? ' (beta)' : '');
-    TBUtils.shortVersion = 320; //don't forget to change this one!  This is used for the 'new version' notification.
+    TBUtils.toolboxVersion = '3.2.1' + ((betaRelease) ? ' (beta)' : '');
+    TBUtils.shortVersion = 321; //don't forget to change this one!  This is used for the 'new version' notification.
     TBUtils.releaseName = 'Blackout Bear';
     TBUtils.configSchema = 1;
     TBUtils.notesSchema = 6;
