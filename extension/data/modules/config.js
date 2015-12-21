@@ -713,7 +713,7 @@ self.init = function() {
             // default note
             editNote = 'update';
         }
-        editNote += ', reason #' + reasonsNum;
+        editNote += ', reason #' + (reasonsNum + 1);
 
         config.removalReasons.reasons[reasonsNum].text = escape(reasonText);
         config.removalReasons.reasons[reasonsNum].flairText = reasonFlairText;
@@ -755,7 +755,7 @@ self.init = function() {
             } else {
                 return;
             }
-            postToWiki('toolbox', config, 'delete reason #' + reasonsNum, true);
+            postToWiki('toolbox', config, 'delete reason #' + (reasonsNum + 1), true);
 
 
             $this.closest('.removal-reason').remove();
@@ -894,8 +894,8 @@ self.init = function() {
             sticky = $macroContent.find('#sticky').prop("checked"),
             editNote = $macroContent.find('input[name=edit-note]').val(),
             macro = config.modMacros[macroNum];
-            
-            
+
+
         if (macroTitle.length < 1) {
             TB.ui.textFeedback('Macro title is required', TB.ui.FEEDBACK_NEGATIVE);
             return;
@@ -905,7 +905,7 @@ self.init = function() {
             // default note
             editNote = 'update';
         }
-        editNote += ', macro #' + macroNum;
+        editNote += ', macro #' + (macroNum + 1);
 
         macro.text = escape(macroText);
         macro.title = macroTitle;
@@ -951,7 +951,7 @@ self.init = function() {
             } else {
                 return;
             }
-            postToWiki('toolbox', config, 'delete macro #' + macroNum, true);
+            postToWiki('toolbox', config, 'delete macro #' + (macroNum + 1), true);
 
 
             $this.closest('.mod-macro').remove();
@@ -978,7 +978,7 @@ self.init = function() {
             lockthread = $body.find('#lockthread').prop("checked"),
             sticky = $body.find('#sticky').prop("checked"),
             editNote = $body.find('#tb-add-mod-macro-form input[name=edit-note]').val();
-            
+
         if (macroTitle.length < 1) {
             TB.ui.textFeedback('Macro title is required', TB.ui.FEEDBACK_NEGATIVE);
             return;
