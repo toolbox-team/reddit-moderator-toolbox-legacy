@@ -2,7 +2,7 @@ toolbox for reddit
 ========================
 
 Bundled extension of the /r/toolbox moderator tools for reddit.com
-
+ 
 Containing:
 - Comments Module: Highlight keywords and hide removed comments.
 - Mod button: Adds a button to submissions and comments that allows you to Ban, unban, mod, unmod, approve, unapprove a user from that spot. If a user is banned it will also load the ban reason on the spot. Very handy when someone modmails you asking why they are banned!
@@ -15,8 +15,34 @@ Containing:
 - Notifications of new (mod)mails, queue items, etc.
 - Toolbar with queue counters
 - Banlist live search: If you have a big ban list this is a awesome feature, it basically turn the banlist search bar in a live search bar that automatically updates with matchers.
+- Trouble Shooter (beta): Highlights and sorts comments in subreddits you moderate to help guide you to potential sources of trouble i.e. controversial and negative score comments.
 
 Documentation: http://www.reddit.com/r/toolbox/w/docs
+
+
+# Building 
+
+Building is relatively easy with gulp. 
+
+Install jpm and gulp globally.
+
+```sh
+$ npm install --global jpm gulp
+```
+
+Then navigate to the root of the toolbox folder and install the dependencies
+
+```sh
+$ npm install 
+```
+
+To build toolbox now simply run
+
+```sh
+$ gulp
+```
+
+Or if you have followed these steps before and are on windows click the build.bat file.
 
 ### Third party support.
 
@@ -24,5 +50,5 @@ All shared features settings and data are stored in subreddit wikis through vers
 
 Examples:
 
-- https://github.com/creesch/reddit-moderator-toolbox/wiki/toolbox-config
-- https://github.com/creesch/reddit-moderator-toolbox/wiki/usernotes-json
+- https://github.com/creesch/reddit-moderator-toolbox/wiki/JSON:-usernotes
+- https://github.com/creesch/reddit-moderator-toolbox/wiki/JSON:-toolbox-config

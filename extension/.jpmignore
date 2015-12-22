@@ -1,0 +1,10 @@
+.*
+*.crx
+*.xpi
+*.zip
+*.bat
+*.plist
+
+/data/libs/worker-css.js
+/data/background-safari.html
+/data/manifest.json
