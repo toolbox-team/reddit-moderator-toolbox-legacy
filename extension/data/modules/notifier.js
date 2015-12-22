@@ -422,11 +422,11 @@ self.init = function () {
             $.getJSON(unreadcontexturl).done(function (jsondata) {
                 var commenttitle = jsondata[0].data.children[0].data.title;
                 if (straightToInbox && messageunreadlink) {
-                    TBUtils.notification('Reply from: ' + unreadauthor + ' in:  ' + unreadsubreddit + ': ' + commenttitle.substr(0, 20) + '\u2026', $(unreadbody_html).text(), '/message/unread/');
+                    TBUtils.notification(unreadauthor + ' replied in  ' + unreadsubreddit + '—' + commenttitle.substr(0, 20) + '\u2026', $(unreadbody_html).text(), '/message/unread/');
                 } else if (straightToInbox) {
-                    TBUtils.notification('Reply from: ' + unreadauthor + ' in:  ' + unreadsubreddit + ': ' + commenttitle.substr(0, 20) + '\u2026', $(unreadbody_html).text(), '/message/inbox/');
+                    TBUtils.notification(unreadauthor + ' replied in  ' + unreadsubreddit + '—' + commenttitle.substr(0, 20) + '\u2026', $(unreadbody_html).text(), '/message/inbox/');
                 } else {
-                    TBUtils.notification('Reply from: ' + unreadauthor + ' in:  ' + unreadsubreddit + ': ' + commenttitle.substr(0, 20) + '\u2026', $(unreadbody_html).text(), unreadcontext, unreadcommentid);
+                    TBUtils.notification(unreadauthor + ' replied in  ' + unreadsubreddit + '—' + commenttitle.substr(0, 20) + '\u2026', $(unreadbody_html).text(), unreadcontext, unreadcommentid);
                 }
             });
         }
