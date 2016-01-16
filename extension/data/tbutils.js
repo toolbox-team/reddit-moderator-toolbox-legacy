@@ -73,9 +73,9 @@ function initwrapper() {
 
 
     // Public variables
-    TBUtils.toolboxVersion = '3.3.0' + ((betaRelease) ? ' (beta)' : '');
-    TBUtils.shortVersion = 330; //don't forget to change this one!  This is used for the 'new version' notification.
-    TBUtils.releaseName = 'Locking Lizard';
+    TBUtils.toolboxVersion = '3.3.1' + ((betaRelease) ? ' (beta)' : '');
+    TBUtils.shortVersion = 331; //don't forget to change this one!  This is used for the 'new version' notification.
+    TBUtils.releaseName = 'Sticky Salamander';
     TBUtils.configSchema = 1;
     TBUtils.notesSchema = 6;
     TBUtils.notesMinSchema = 4;
