@@ -92,8 +92,8 @@ function initwrapper() {
 
 
     // Public variables
-    TBUtils.toolboxVersion = '3.4.1' + ((betaRelease) ? ' (beta)' : '');
-    TBUtils.shortVersion = 341; //don't forget to change this one!  This is used for the 'new version' notification.
+    TBUtils.toolboxVersion = '3.4.2' + ((betaRelease) ? ' (beta)' : '');
+    TBUtils.shortVersion = 342; //don't forget to change this one!  This is used for the 'new version' notification.
     TBUtils.releaseName = 'Modmailing Mallard';
     TBUtils.configSchema = 1;
     TBUtils.notesSchema = 6;
@@ -240,8 +240,8 @@ function initwrapper() {
         localStorage.removeItem('Toolbox.Modbar.enableTopLink');
 
         // End: version changes.
-		
-		// This is a super extra check to make sure the wiki page for settings export really is private. 
+
+		// This is a super extra check to make sure the wiki page for settings export really is private.
 		var settingSubEnabled = TBStorage.getSetting('Utils', 'settingSub', '');
 		if (settingSubEnabled) {
 			TBUtils.setWikiPrivate('tbsettings', settingSubEnabled, false);
@@ -1176,7 +1176,7 @@ function initwrapper() {
             }
         });
     };
-	
+
 	TBUtils.setWikiPrivate = function setWikiPrivate(page, subreddit, failAlert) {
 		$.post(TBUtils.baseDomain + '/r/' + subreddit + '/wiki/settings/', {
 			page: page,
@@ -1194,7 +1194,7 @@ function initwrapper() {
 					$.log('error setting wiki page to mod only access');
 				}
 			});
-		
+
 	}
 
     TBUtils.postToWiki = function postToWiki(page, subreddit, data, reason, isJSON, updateAM, callback) {
@@ -1236,7 +1236,7 @@ function initwrapper() {
                     // In order to make sure the callback followup doesn't mess with the mod only call we let it wait a bit longer.
 
                     callback(true);
-                    
+
                 }, 750);
 
                 setTimeout(function () {
