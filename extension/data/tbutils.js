@@ -976,7 +976,7 @@ function initwrapper() {
             approved_by = approved_text.match(/by\s(.+?)\s/) || '';
 
         // If the permalink is relative, stick the current domain name in.
-        if (permalink.slice(0) == "/")
+        if (permalink.slice(0,1) == "/")
         {
             permalink = TBUtils.baseDomain + permalink
         }
