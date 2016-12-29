@@ -957,8 +957,6 @@ function initwrapper() {
                     subreddit = $thing.closest('.message-parent').find('.correspondent.reddit.rounded a').text()
                 }
             }
-
-
         }
 
         // A recent reddit change makes subreddit names sometimes start with "/r/".
@@ -977,6 +975,12 @@ function initwrapper() {
 
         var approved_text = $entry.find('.approval-checkmark').attr('title') || $thing.find('.approval-checkmark').attr('title') || '',
             approved_by = approved_text.match(/by\s(.+?)\s/) || '';
+
+        // If the permalink is relative, stick the current domain name in.
+        if (permalink.slice(0) == "/")
+        {
+        	permalink = TBUtils.baseDomain + permalink
+        }
 
         var info = {
             subreddit: subreddit,
@@ -1004,6 +1008,7 @@ function initwrapper() {
             mod: TBUtils.logged
         };
         //$.log(info, false, SHORTNAME);
+
         return info;
     };
 
