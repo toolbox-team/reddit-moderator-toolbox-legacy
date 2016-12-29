@@ -925,7 +925,6 @@ function initwrapper() {
             user = $sender.closest('.user').find('a:first').text() || $entry.closest('.user').find('a:first').text() || $thing.closest('.user').find('a:first').text();
         }
 
-
         // If we still don't have a sub, we're in mod mail, or PMs.
         if (TBUtils.isModmail || $sender.closest('.message-parent')[0] !== undefined) {
             // Change it to use the parent's title.
@@ -979,7 +978,7 @@ function initwrapper() {
         // If the permalink is relative, stick the current domain name in.
         if (permalink.slice(0) == "/")
         {
-        	permalink = TBUtils.baseDomain + permalink
+            permalink = TBUtils.baseDomain + permalink
         }
 
         var info = {
@@ -1008,7 +1007,6 @@ function initwrapper() {
             mod: TBUtils.logged
         };
         //$.log(info, false, SHORTNAME);
-
         return info;
     };
 
