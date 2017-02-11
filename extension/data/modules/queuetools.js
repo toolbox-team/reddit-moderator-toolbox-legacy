@@ -951,7 +951,7 @@ self.init = function () {
                     threadID;
                 if ($thing.hasClass('comment')) {
                     // Find ID of the parent submission from title URL
-                    threadID = $thing.find('.parent a.title').attr('href').match(/\/comments\/([a-z0-9]+)\//)[1];
+                    threadID = $thing.find('.flat-list.buttons .first a').attr('href').match(/\/comments\/([a-z0-9]+)\//)[1];
                 } else {
                     // I am the parent submission, so get my own ID
                     // TBUtils.getThingInfo() is overkill here
