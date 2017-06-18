@@ -7,7 +7,7 @@ self.settings['enabled']['default'] = true;
 // First show the options for filtering of subreddits.
 self.register_setting('modSubreddits', {
     'type': 'text',
-    'default': 'mod',
+    'default': '/r/mod',
     'advanced': false,
     'title': 'Multireddit of subs you want displayed in the modqueue counter'
 });
@@ -21,7 +21,7 @@ self.register_setting('modSubredditsFMod', {
 
 self.register_setting('unmoderatedSubreddits', {
     'type': 'text',
-    'default': 'mod',
+    'default': '/r/mod',
     'advanced': false,
     'title': 'Multireddit of subs you want displayed in the unmoderated counter'
 });

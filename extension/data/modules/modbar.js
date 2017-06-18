@@ -102,8 +102,8 @@ self.init = function() {
         shortLength = TB.storage.getSetting('Utils', 'shortLength', 15),
         longLength = TB.storage.getSetting('Utils', 'longLength', 45),
 
-        modSubreddits = TB.storage.getSetting('Notifier', 'modSubreddits', 'mod'),
-        unmoderatedSubreddits = TB.storage.getSetting('Notifier', 'unmoderatedSubreddits', 'mod'),
+        modSubreddits = TB.storage.getSetting('Notifier', 'modSubreddits', '/r/mod'),
+        unmoderatedSubreddits = TB.storage.getSetting('Notifier', 'unmoderatedSubreddits', '/r/mod'),
         unreadMessageCount = TB.storage.getSetting('Notifier', 'unreadMessageCount', 0),
         modqueueCount = TB.storage.getSetting('Notifier', 'modqueueCount', 0),
         unmoderatedCount = TB.storage.getSetting('Notifier', 'unmoderatedCount', 0),
@@ -137,7 +137,7 @@ self.init = function() {
         $('#tb-modmailcount').attr('href', modMailUrl);
     }
 
-    var modQueueUrl = TBUtils.baseDomain + (modSubredditsFMod ? '/me/f/mod/about/modqueue/' : '/r/' + modSubreddits + '/about/modqueue');
+    var modQueueUrl = TBUtils.baseDomain + (modSubredditsFMod ? '/me/f/mod/about/modqueue/' : modSubreddits + '/about/modqueue');
     var modBar = $('\
 <div id="tb-bottombar" class="tb-toolbar">\
     <a class="tb-bottombar-hide" href="javascript:void(0)"><img src="data:image/png;base64,' + TBui.iconHide + '" /></a>\
@@ -164,7 +164,7 @@ self.init = function() {
    // Add unmoderated icon if it is enabled.
 
     if (unmoderatedOn) {
-        var unModQueueUrl = TBUtils.baseDomain + (unmoderatedSubredditsFMod ? '/me/f/mod/about/unmoderated/' : '/r/' + unmoderatedSubreddits + '/about/unmoderated');
+        var unModQueueUrl = TBUtils.baseDomain + (unmoderatedSubredditsFMod ? '/me/f/mod/about/unmoderated/' : unmoderatedSubreddits + '/about/unmoderated');
         modBar.find('#tb-toolbarcounters').append('\
 <a title="unmoderated" href="' + unModQueueUrl + '" id="tb-unmoderated"></a>\
 <a href="' + unModQueueUrl + '" class="tb-toolbar" id="tb-unmoderatedcount"></a>\
