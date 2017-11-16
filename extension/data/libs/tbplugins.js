@@ -207,6 +207,15 @@
 // http://thrivingkings.com/sticky
 (function ($) {
 
+    function stickyBottomChange($redditChat, $tbStickyQueue) {
+        setTimeout(function () {
+            var redditChatHeight = $redditChat.outerHeight();
+            var newStickyBottom = `${redditChatHeight + 25}px`;
+            $tbStickyQueue.css('bottom', newStickyBottom);
+
+            }, 100);
+
+    }
     // Using it without an object
     $.sticky = function (note, title='-', url=false, options, callback) {
         return $.fn.sticky(note, title, url, options, callback);
@@ -215,6 +224,7 @@
     $.fn.sticky = function (note, title, url, options, callback) {
         // Default settings
         var position = 'bottom-right'; // top-left, top-right, bottom-left, or bottom-right
+        var $body = $('body');
 
         var settings = {
             'speed': 'fast', // animations: fast, slow, or integer
@@ -248,11 +258,27 @@
                 uniqID = Math.floor(Math.random() * 9999999);
             }
         });
-
+        var $redditChat = $body.find('iframe#chat.pinned-to-bottom');
+        var $tbStickyQueue = $body.find('.tb-sticky-queue');
         // Make sure the sticky queue exists
-        if (!$('body').find('.tb-sticky-queue').html()) {
-            $('body').append('<div class="tb-sticky-queue ' + position + '"></div>');
+        if (!$tbStickyQueue.length) {
+            $tbStickyQueue = $('<div class="tb-sticky-queue ' + position + '"></div>').appendTo($('body'));
+
         }
+
+
+        if($redditChat.length) {
+            $redditChat.contents().click(function () {
+
+                stickyBottomChange($redditChat, $tbStickyQueue);
+            });
+            stickyBottomChange($redditChat, $tbStickyQueue);
+        } else {
+            $tbStickyQueue.css('bottom', '25px');
+        }
+
+
+
 
         // Can it be displayed?
         if (display) {
