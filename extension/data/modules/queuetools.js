@@ -98,6 +98,12 @@ function queuetools() {
         'beta': true,
         'title': 'Open context links in a toolbox popup. Allows for quickly viewing the context of something without leaving the queue page.'
     });
+
+    self.register_setting('directProfileToLegacy', {
+        'type': 'boolean',
+        'default': false,
+        'title': 'Open legacy user overview when clicking on profile links.'
+    });
     self.register_setting('groupCommentsOnModPage', {
         'type': 'boolean',
         'default': false,
@@ -128,6 +134,7 @@ function queuetools() {
             showReportReasons = self.setting('showReportReasons'),
             highlightAutomodMatches = self.setting('highlightAutomodMatches'),
             openContextInPopup = self.setting('openContextInPopup'),
+            directProfileToLegacy = self.setting('directProfileToLegacy'),
             groupCommentsOnModPage = self.setting('groupCommentsOnModPage');
 
         // var SPAM_REPORT_SUB = 'spam', QUEUE_URL = '';
@@ -139,6 +146,22 @@ function queuetools() {
             } else if (TBUtils.isUnmoderatedPage) {
                 QUEUE_URL = 'about/unmoderated/';
             }
+        }
+        if(directProfileToLegacy) {
+            $body.on('click', 'a', function(event) {
+                const userProfileRegex = /(?:\.reddit\.com)?\/(?:user|u)\/[^/]*?\/?$/;
+                const thisHref = $(this).attr('href');
+                if(userProfileRegex.test(thisHref)) {
+                    event.preventDefault();
+                    const lastChar = thisHref.substr(-1);
+                    const newHref = `${thisHref}${lastChar === `/` ? `` : `/`}overview`;
+                    if (event.ctrlKey || event.metaKey) {
+                        window.open(newHref,'_blank');
+                    } else {
+                        window.location.href = newHref;
+                    }
+                }
+            });
         }
 
 
