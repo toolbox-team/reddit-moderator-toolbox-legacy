@@ -34,7 +34,7 @@ function newmodmailpro() {
     self.register_setting('searcharchive', {
         'type': 'boolean',
         'default': false,
-        'beta': true,
+        'beta': false,
         'title': 'Add rudimentary search functionality to the archive page. This will only be able to search the preview text.'
     });
 

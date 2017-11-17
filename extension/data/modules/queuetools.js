@@ -95,7 +95,7 @@ function queuetools() {
     self.register_setting('openContextInPopup', {
         'type': 'boolean',
         'default': true,
-        'beta': true,
+        'beta': false,
         'title': 'Open context links in a toolbox popup. Allows for quickly viewing the context of something without leaving the queue page.'
     });
 
