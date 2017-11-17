@@ -1,3 +1,9 @@
+/* make modbar play nice with reddit chat */
+
+.tb-modbar-shown .pinned-to-bottom {
+    bottom: 24px;
+}
+
 body.mod-toolbox #tb-bottombar {
     bottom: 0;
     z-index: 2147483646 !important;
