@@ -151,7 +151,9 @@ function queuetools() {
             $body.on('click', 'a', function(event) {
                 const userProfileRegex = /(?:\.reddit\.com)?\/(?:user|u)\/[^/]*?\/?$/;
                 const thisHref = $(this).attr('href');
-                if(userProfileRegex.test(thisHref)) {
+
+                // If the url matches and we are not on an old style profile already.
+                if(userProfileRegex.test(thisHref) && !userProfileRegex.test(window.location.href)) {
                     event.preventDefault();
                     const lastChar = thisHref.substr(-1);
                     const newHref = `${thisHref}${lastChar === `/` ? `` : `/`}overview`;
