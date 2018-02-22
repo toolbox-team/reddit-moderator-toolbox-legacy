@@ -193,7 +193,7 @@ function notifiermod() {
 
     self.init = function () {
 
-        var NOTIFICATION_SOUND = 'https://raw.githubusercontent.com/creesch/reddit-moderator-toolbox/gh-pages/audio/mail.mp3',
+        var NOTIFICATION_SOUND = 'https://raw.githubusercontent.com/toolbox-team/reddit-moderator-toolbox/gh-pages/audio/mail.mp3',
 
             wwwNotifications = self.setting('wwwNotifications'),
             modNotifications = self.setting('modNotifications'),

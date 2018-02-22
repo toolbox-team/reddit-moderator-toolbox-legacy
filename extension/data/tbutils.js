@@ -2545,7 +2545,7 @@ function initwrapper() {
 
                 if (TBUtils.debugMode && resp.devVersion > TBUtils.shortVersion && TBUtils.isExtension) {
                     TBUtils.alert('There is a new development version of toolbox!  Click here to update.', function (clicked) {
-                        if (clicked) window.open('https://github.com/creesch/reddit-moderator-toolbox');
+                        if (clicked) window.open('https://github.com/toolbox-team/reddit-moderator-toolbox');
                     });
                 }
 

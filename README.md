@@ -75,5 +75,5 @@ All shared features settings and data are stored in subreddit wikis through vers
 
 Examples:
 
-- https://github.com/creesch/reddit-moderator-toolbox/wiki/JSON:-usernotes
-- https://github.com/creesch/reddit-moderator-toolbox/wiki/JSON:-toolbox-config
+- https://github.com/toolbox-team/reddit-moderator-toolbox/wiki/JSON:-usernotes
+- https://github.com/toolbox-team/reddit-moderator-toolbox/wiki/JSON:-toolbox-config

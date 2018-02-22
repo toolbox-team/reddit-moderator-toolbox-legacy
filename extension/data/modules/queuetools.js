@@ -537,7 +537,7 @@ function queuetools() {
             });
 
             // NB: the reason both the above method and the next one use .click() instead of .prop() is so they act as a toggle
-            // when the report button is pressed. See https://github.com/creesch/reddit-moderator-toolbox/issues/421
+            // when the report button is pressed. See https://github.com/toolbox-team/reddit-moderator-toolbox/issues/421
             // This way, if it was already checked by the user, the following call will re-check it.  If it wasn't
             // the following call will uncheck it.
 
