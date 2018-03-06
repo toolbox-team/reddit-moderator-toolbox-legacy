@@ -867,7 +867,7 @@ span.rate-limit-explain {
     margin-right: 0;
     width: auto;
     height: 10px;
-    background: url("https://creesch.github.io/reddit-moderator-toolbox/hosted_images/long_load_bar.gif") center center fixed;
+    background: url("https://toolbox-team.github.io/reddit-moderator-toolbox/hosted_images/long_load_bar.gif") center center fixed;
 }
 
 /*
@@ -884,7 +884,7 @@ span.rate-limit-explain {
     margin-right: 0;
     width: auto;
     height: 10px;
-    background: url("https://creesch.github.io/reddit-moderator-toolbox/hosted_images/long_load_bar_non_persistant.gif") center center fixed;
+    background: url("https://toolbox-team.github.io/reddit-moderator-toolbox/hosted_images/long_load_bar_non_persistant.gif") center center fixed;
 }
 
 /*

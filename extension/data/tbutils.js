@@ -2530,7 +2530,7 @@ function initwrapper() {
                 // Custom FF nag for updates.
                 if (resp.ffVersion > TBUtils.shortVersion && TBUtils.browser == FIREFOX && TBUtils.isExtension) {
                     TBUtils.alert('There is a new version of toolbox for Firefox!  Click here to update.', function (clicked) {
-                        if (clicked) window.open(`http://creesch.github.io/reddit-moderator-toolbox/downloads/reddit_mod_tb_${resp.ffVersion}.xpi`);
+                        if (clicked) window.open(`http://toolbox-team.github.io/reddit-moderator-toolbox/downloads/reddit_mod_tb_${resp.ffVersion}.xpi`);
                     });
                     return; //don't spam the user with notes until they have the current version.
                 }
@@ -2538,7 +2538,7 @@ function initwrapper() {
                 // Custom Safari nag for updates.
                 if (resp.safariVersion > TBUtils.shortVersion && TBUtils.browser == SAFARI && TBUtils.isExtension) {
                     TBUtils.alert('There is a new version of toolbox for Safari!  Click here to update.', function (clicked) {
-                        if (clicked) window.open(`http://creesch.github.io/reddit-moderator-toolbox/downloads/reddit_mod_tb_${resp.safariVersion}.safariextz`);
+                        if (clicked) window.open(`http://toolbox-team.github.io/reddit-moderator-toolbox/downloads/reddit_mod_tb_${resp.safariVersion}.safariextz`);
                     });
                     return; //don't spam the user with notes until they have the current version.
                 }

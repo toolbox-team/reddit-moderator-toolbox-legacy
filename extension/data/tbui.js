@@ -620,10 +620,10 @@
                 </style>`);
                 var $body = $('body');
                 if (location.host === 'mod.reddit.com') {
-                    $body.append(`<div id="tb-loading-stuff"><span class="tb-loading-content"><img src="https://creesch.github.io/reddit-moderator-toolbox/hosted_images/long_load_spinner.gif" alt="loading"> <span class="tb-loading-text">${TBUtils.RandomFeedback}</span></span></div>`);
+                    $body.append(`<div id="tb-loading-stuff"><span class="tb-loading-content"><img src="https://toolbox-team.github.io/reddit-moderator-toolbox/hosted_images/long_load_spinner.gif" alt="loading"> <span class="tb-loading-text">${TBUtils.RandomFeedback}</span></span></div>`);
                     $body.append('<div id="tb-loading"></div>');
                 } else {
-                    $('.footer-parent').append(`<div id="tb-loading-stuff"><span class="tb-loading-content"><img src="https://creesch.github.io/reddit-moderator-toolbox/hosted_images/long_load_spinner.gif" alt="loading"> <span class="tb-loading-text">${TBUtils.RandomFeedback}</span></span></div>`);
+                    $('.footer-parent').append(`<div id="tb-loading-stuff"><span class="tb-loading-content"><img src="https://toolbox-team.github.io/reddit-moderator-toolbox/hosted_images/long_load_spinner.gif" alt="loading"> <span class="tb-loading-text">${TBUtils.RandomFeedback}</span></span></div>`);
                     $('.footer-parent').append('<div id="tb-loading"></div>');
                 }
                 var $randomFeedbackWindow = $('body').find('#tb-loading-stuff');
