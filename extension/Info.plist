@@ -50,7 +50,6 @@
 				<string>data/libs/codemirror/mode/javascript.js</string>
 				<string>data/libs/pako.js</string>
 				<string>data/libs/redditapi.js</string>
-				<string>data/libs/spectrum.js</string>
 				<string>data/tbstorage.js</string>
 				<string>data/tbui.js</string>
 				<string>data/tbutils.js</string>
@@ -86,7 +85,6 @@
 		</dict>
 		<key>Stylesheets</key>
 		<array>
-				<string>data/styles/spectrum.css</string>
 				<string>data/styles/toolbox.css</string>
                 <string>data/styles/support.css</string>
 				<string>data/styles/comment.css</string>
