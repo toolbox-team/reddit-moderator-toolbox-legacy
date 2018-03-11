@@ -124,8 +124,8 @@ function initwrapper() {
 
 
         // Public variables
-        TBUtils.toolboxVersion = `3.7.1${(betaRelease) ? ' (beta)' : ''}`;
-        TBUtils.shortVersion = 371; //don't forget to change this one!  This is used for the 'new version' notification.
+        TBUtils.toolboxVersion = `3.7.2${(betaRelease) ? ' (beta)' : ''}`;
+        TBUtils.shortVersion = 372; //don't forget to change this one!  This is used for the 'new version' notification.
         TBUtils.releaseName = 'Cleaning Cockcroach';
         TBUtils.configSchema = 1;
         TBUtils.notesSchema = 6;
@@ -922,7 +922,7 @@ function initwrapper() {
             find = find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
             return str.replace(new RegExp(find, 'g'), replace);
         };
-        
+
         /**
          * Will compare the input color to a list of known color names and return the HEX value
          * @function colorNameToHex
