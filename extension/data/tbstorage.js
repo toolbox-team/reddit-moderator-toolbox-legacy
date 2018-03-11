@@ -80,7 +80,7 @@
 
 function storagewrapper() {
     (function (TBStorage) {
-        if ((!$('form.logout input[name=uh]').val() && $('.Header__profile').length === 0) || $('.mod-toolbox').length) return; // not logged in or toolbox is already loaded.
+        if ((!$('form.logout input[name=uh]').val() && $('.Header__profile').length === 0) || $('.mod-toolbox').length || $('.mod-toolbox-rd').length) return; // not logged in or toolbox is already loaded.
 
 
         var SHORTNAME = 'TBStorage';
@@ -336,10 +336,19 @@ function storagewrapper() {
 
 
         function SendInit() {
-            setTimeout(function () {
-                var event = new CustomEvent('TBStorageLoaded');
-                window.dispatchEvent(event);
-            }, 10);
+            if(window.location.hostname === 'mod.reddit.com') {
+                setTimeout(function () {
+                    if(!$('body').hasClass('mod-toolbox-rd')) {
+                        var event = new CustomEvent('TBStorageLoaded');
+                        window.dispatchEvent(event);
+                    }
+                }, 1000);
+            } else {
+                setTimeout(function () {
+                    var event = new CustomEvent('TBStorageLoaded');
+                    window.dispatchEvent(event);
+                }, 10);
+            }
         }
 
 
