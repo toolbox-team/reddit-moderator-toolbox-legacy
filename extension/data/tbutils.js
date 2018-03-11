@@ -1222,8 +1222,9 @@ function initwrapper() {
         };
 
         TBUtils.getThingInfo = function (sender, modCheck) {
+            const permaCommentLinkRegex = /(\/r\/[^/]*?\/comments\/[^/]*?\/)([^/]*?)(\/[^/]*?\/?)$/;
 
-        // declare what we will need.
+            // declare what we will need.
             var $sender = $(sender);
             var $body = $('body');
 
@@ -1370,6 +1371,10 @@ function initwrapper() {
             if (permalink && permalink.slice(0,1) == '/')
             {
                 permalink = TBUtils.baseDomain + permalink;
+            }
+
+            if (permalink && permaCommentLinkRegex.test(permalink)) {
+                permalink = permalink.replace(permaCommentLinkRegex, '$1-$3');
             }
 
             var info = {
