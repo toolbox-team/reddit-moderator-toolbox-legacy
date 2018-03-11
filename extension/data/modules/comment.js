@@ -581,6 +581,7 @@ function comments() {
                     function searchComments(user, options, after) {
                         $.getJSON(`${TBUtils.baseDomain}/user/${user}/comments.json`, {
                             'after': after,
+                            'sort': 'new',
                             'limit': 100
                         }).done(function (data) {
 
