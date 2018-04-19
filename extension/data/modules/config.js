@@ -20,7 +20,7 @@ function tbconfig() {
         // With the following function we will create the UI when we need it.
         // Create the window overlay.
         function showConfig(subredditConfig, configData) {
-            
+
             TB.ui.overlay(
                 `toolbox Configuration - /r/${subredditConfig}`,
                 [
@@ -232,7 +232,7 @@ function tbconfig() {
             ).appendTo('body');
             $body.css('overflow', 'hidden');
 
-            // TODO: This should not be called here, tabs should only be filled when actively used. Something something performance. 
+            // TODO: This should not be called here, tabs should only be filled when actively used. Something something performance.
             // Also while it is nifty dom building it isn't inline with how we do it in other parts of toolbox and could easily be just a single string. This seems like overkill.
             function genUsernoteTypesContent() {
                 return $('<div>').attr('id', 'tb-config-usernote-types').append(
@@ -557,7 +557,7 @@ function tbconfig() {
         }
 
         function appendUsernoteType(key, text, color, $list) {
-            const safeColor = TBUtils.colorNameToHex(color)
+            const safeColor = TBUtils.colorNameToHex(color);
             if (!$list) {
                 $list = $('#tb-config-usernote-type-list');
             }
@@ -661,7 +661,7 @@ function tbconfig() {
         function removalReasonsEditContent() {
 
             if (config.removalReasons && config.removalReasons.reasons.length > 0) {
-            // Copy the reasons to a new array without reference to the old one. 
+            // Copy the reasons to a new array without reference to the old one.
                 sortReasons = JSON.parse(JSON.stringify(config.removalReasons.reasons));
 
                 config.removalReasons.reasons.forEach(function (reason, index) {
@@ -883,7 +883,7 @@ function tbconfig() {
         });
 
         $body.on('click', '#add-usernote-type', function () {
-            appendUsernoteType('', '');
+            appendUsernoteType('', '', 'ALICEBLUE');  //yay, magic strings!
         });
 
         $body.on('keyup', '#tb-config-usernote-type-list .name', function () {
@@ -1208,7 +1208,7 @@ function tbconfig() {
 
 
             $this.addClass('content-populated');
-        
+
         });
 
         $body.on('click', '.tb-sort-up', function () {
@@ -1220,8 +1220,8 @@ function tbconfig() {
                 var upReasonKey = $row.attr('data-reason');
                 var downReasonKey = $prev.attr('data-reason');
 
-                // Move them in the array.      
-                sortReasons = TBUtils.moveArrayItem(sortReasons, parseInt(upReasonKey), parseInt(downReasonKey));   
+                // Move them in the array.
+                sortReasons = TBUtils.moveArrayItem(sortReasons, parseInt(upReasonKey), parseInt(downReasonKey));
 
                 // Now move the elements on page.
                 $row.attr('data-reason', downReasonKey);
@@ -1244,7 +1244,7 @@ function tbconfig() {
                 var downReasonKey = $row.attr('data-reason');
 
                 // Move them in the array.
-                sortReasons = TBUtils.moveArrayItem(sortReasons, parseInt(downReasonKey), parseInt(upReasonKey));  
+                sortReasons = TBUtils.moveArrayItem(sortReasons, parseInt(downReasonKey), parseInt(upReasonKey));
 
                 // Now move the elements on page.
                 $row.attr('data-reason', upReasonKey);
@@ -1259,14 +1259,14 @@ function tbconfig() {
 
         // Save the new order of removal reasons.
         $body.on('click', '.save-removal-sorting', function () {
-        // Overwrite the removal reasons 
+        // Overwrite the removal reasons
             config.removalReasons.reasons = JSON.parse(JSON.stringify(sortReasons));
             var editNote = 'Sorting removal reasons from toolbox config.';
-            postToWiki('toolbox', config, editNote, true);            
+            postToWiki('toolbox', config, editNote, true);
 
-            // For now we just remove all contents of the edit tab. 
-            // TODO: Think of a nicer method that allows the contents of that tab to be restored when the order is changed. 
-            // The tricky part with that is that we only want to do that when the new order is saved, not before that happens. 
+            // For now we just remove all contents of the edit tab.
+            // TODO: Think of a nicer method that allows the contents of that tab to be restored when the order is changed.
+            // The tricky part with that is that we only want to do that when the new order is saved, not before that happens.
             $body.find('#tb-removal-reasons-list').empty();
             $body.find('.tb-window-tabs .edit_removal_reasons').removeClass('content-populated');
 
