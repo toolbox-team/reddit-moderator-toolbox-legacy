@@ -850,7 +850,7 @@ function queuetools() {
                 $('.tb-sort-subs').remove(); // don't allow sorting twice.
 
                 var now = TB.utils.getTime(),
-                //delay = 0,
+                    //delay = 0,
                     modSubs = [];
 
                 TBui.longLoadNonPersistent(true, 'Getting subreddit items...', TB.ui.FEEDBACK_NEUTRAL);
@@ -954,6 +954,11 @@ function queuetools() {
                 });
                 $sitetable.find('.thing').remove();
                 $sitetable.prepend(things);
+
+                // Re-group things every time the page is re-sorted
+                if (TBUtils.isModpage && groupCommentsOnModPage) {
+                    groupThings();
+                }
             }
 
             sortThings(listingOrder, sortAscending);
@@ -964,6 +969,9 @@ function queuetools() {
             function groupThings () {
                 var threadGroups = {},
                     threadIDs = []; // because who needs Object.keys() anyway
+
+                // Sorting leaves behind the extra wrappers, so clean them up
+                $('.sitetable .tb-comment-group').remove();
 
                 // Save a copy of each link/comment and record its parent thread ID
                 $('.sitetable .thing').each(function () {
@@ -990,8 +998,8 @@ function queuetools() {
                 // TODO: Using wrappers is probably a bad call unless we want to
                 //       give groups custom CSS
                 $.each(threadIDs, function (index, id) {
-                // Each wrapper will contain all the things associated with
-                // a single submission, including the submission itself
+                    // Each wrapper will contain all the things associated with
+                    // a single submission, including the submission itself
                     var $wrapper = $('<div>').addClass('tb-comment-group').attr('data-id', id);
                     $('#siteTable').append($wrapper);
                     // Loop through each thing associated with the submission
@@ -1003,11 +1011,6 @@ function queuetools() {
                     $wrapper.append($('<hr />'));
                 });
             }
-
-            if (TBUtils.isModpage && groupCommentsOnModPage) {
-                groupThings();
-            }
-
         }
 
         // Add mod tools or mod tools toggle button if applicable
