@@ -501,7 +501,7 @@ function removalreasons() {
                         tr.find('.removal-reason-title').remove();
                     }
 
-                    popup.find('tbody').append(tr);
+                    popup.find('#reason-table').append(tr);
                 });
 
                 // Pre-fill reason input elements which have IDs.
