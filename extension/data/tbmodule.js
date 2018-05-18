@@ -363,13 +363,11 @@ function tbmodule() {
                 let sub = $('input[name=settingssub]').val();
                 if (!sub) {
                     TB.ui.textFeedback('You have not set a subreddit to backup/restore settings', TB.ui.FEEDBACK_NEGATIVE);
-                    self.log('no setting sub');
                     return;
                 }
 
-                if (TB.storage.domain !== 'www') {
-                    self.log('invalid export domain');
-                    TB.ui.textFeedback('Toolbox can only backup/restore settings from www.reddit.com', TB.ui.FEEDBACK_NEGATIVE);
+                if (TB.storage.domain !== 'www' && TB.storage.domain !== 'old') {
+                    TB.ui.textFeedback('Toolbox can only backup/restore settings from www.reddit.com or old.reddit.com', TB.ui.FEEDBACK_NEGATIVE);
                     return;
                 }
 
