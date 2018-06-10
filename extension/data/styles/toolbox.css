@@ -1407,6 +1407,10 @@ TODO: Redo the below mess in a structured manner AFTER the reddit redesign.
     background-color: #621c1c;
 }
 
+.mod-toolbox.res-nightmode .action-reason {
+    background-color: rgba(0, 0, 0, 0.59);
+}
+
 .mod-toolbox.res-nightmode .comment.spam>.child, .mod-toolbox.res-nightmode .message.spam>.child {
 background-color: #1f1f1f;
 }
