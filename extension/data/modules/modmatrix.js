@@ -713,133 +713,67 @@ function modmatrix() {
 
         var $body = $('body');
 
-        var commentLoadActive = false,
-            ratelimitRemaining = 200,
-            ratelimitReset;
-        $('.content .menuarea').append('<div class="spacer"><span id="ratelimit-counter"></span><a href="javascript:;" class="activate-comment-load tb-general-button" >Load text of removed comments.</a></div>');
+        let lastAfter;
+
+        const $nerNext = $body.find('#NERStaticLink');
+        const nerActive = $nerNext.length;
+        let loadComments = false; 
+        const parser = SnuOwnd.getParser(SnuOwnd.getRedditRenderer())
+        $('.content .menuarea').append('<div class="spacer"><a href="javascript:;" class="activate-comment-load tb-general-button" >Load text of removed comments.</a></div>');
 
 
-        function getComments() {
+        function getComments(modlogUrl) {
+            TB.ui.longLoadSpinner(true);
 
-        // TODO: replace this entire section with a more api friendly call. The removed text is included in the json.
-        // So it is no longer needed to do a call for each comment.
+            $.getJSON(modlogUrl, {
+                raw_json : 1
+            }).done(function(result) {
+                lastAfter = result.data.after;
+                const $modActions = $('.modactionlisting');
+                result.data.children.forEach(function(child) {
+                    if(child.data.target_body && child.data.action === 'removecomment') {
+                        const $listingItem = $modActions.find(`tr.modactions[data-fullname="${child.data.id}"] .description`);
 
-            $('.modactionlisting table tr.modactions').each(function () {
-                var $this = $(this);
-                if ($this.find('.button a').hasClass('removecomment')) {
-                    var removedUrl = $this.find('.description a').attr('href');
+                        const comment = `
+                            <div class="removed_comment_text">
+                                <div class="md">
+                                    
+${parser.render(child.data.target_body)}
+                                    
+                                </div>
+                            </div>
+                        `;
 
-                    var commentID = removedUrl.match(/.*reddit\.com\/r\/.*\/(.*?)\/$/);
-                    commentID = commentID[1];
-                    removedUrl = `${removedUrl}.json`;
-
-
-                    if (!$this.find('.description').attr('id')) {
-                        $this.find('.description').attr('id', commentID);
-
-
-                        $.getJSON(removedUrl).done(function (data) {
-
-
-                            $body.find('.activate-comment-load').attr('data-remaining', ratelimitRemaining);
-                            $body.find('.activate-comment-load').attr('data-reset', ratelimitReset);
-
-                            // We need to account for deleted comments.
-
-                            if(data[1].data.children[0]) {
-
-                                var approved = data[1].data.children[0].data.approved_by;
-                                var commentBody = data[1].data.children[0].data.body_html;
-                                var commentID = data[1].data.children[0].data.id;
-
-                                if (approved !== null) {
-                                    approved = `<br><b>Already approved by ${approved}</b>`;
-                                } else {
-                                    approved = '';
-                                }
-
-
-
-
-                                $(`#${commentID}`).append(`<div class="removed_comment_text">${TBUtils.htmlDecode(commentBody)}${approved}</div>`);
-                            }
-
-                        });
-
+                        $listingItem.append(comment)
                     }
-                }
-            });
-            TB.ui.longLoadSpinner(false);
-        }
-
-
-        function getRatelimit() {
-            $.getJSON(`${TBUtils.baseDomain}/r/toolbox.json?limit=1`).done(function (data, status, jqxhr) {
-                var ratelimitRemaining = jqxhr.getResponseHeader('x-ratelimit-remaining');
-                var ratelimitReset = jqxhr.getResponseHeader('x-ratelimit-reset');
-                addComments(ratelimitRemaining, ratelimitReset);
-            });
-
-        }
-
-        function addComments(ratelimit, ratelimitReset) {
-            commentLoadActive = true;
-            var commentCount = 0;
-            if (ratelimit === undefined) {
-                getRatelimit();
-            } else {
-                TB.ui.longLoadSpinner(true);
-                $('.modactionlisting table tr.modactions').each(function () {
-                    var $this = $(this);
-                    if ($this.find('.button a').hasClass('removecomment')) {
-                        if (!$this.find('.description').attr('id')) {
-                            commentCount = commentCount + 1;
-                        }
-                        self.log(`commentcount: ${commentCount} ratelimit: ${ratelimit}`);
-                    // lets add a little buffer just to be sure
-                    }
+                    
                 });
+                TB.ui.longLoadSpinner(false);
 
-                commentCount = commentCount + 10;
-                if (parseInt(ratelimit) < commentCount) {
-                    $body.find('#ratelimit-counter').show();
-                    var count = parseInt(ratelimitReset);
-                    var counter = setInterval(timer, 1000);
 
-                    function timer() {
-                        count = count - 1;
-                        if (count <= 0) {
-                            clearInterval(counter);
-                            $body.find('#ratelimit-counter').empty();
-                            $body.find('#ratelimit-counter').hide();
-                            getComments();
-                            return;
-                        }
+                
+            });
 
-                        var minutes = Math.floor(count / 60);
-                        var seconds = count - minutes * 60;
-
-                        $body.find('#ratelimit-counter').html(`<b>Oh dear, it seems we have hit a limit, waiting for ${minutes} minutes and ${seconds} seconds </b>
-            <br><br>
-            <span class="rate-limit-explain"><b>tl;dr</b> <br> Reddit's current ratelimit allows for <i>${ratelimit} requests</i>. We are currently trying to load <i>${parseInt(commentCount - 10)} comments</i>. Together with toolbox requests in the background that is cutting it a little bit too close. Luckily for us reddit tells us when the ratelimit will be reset, that is the timer you see now.</span>
-            `);
-                    }
-
-                } else {
-                    getComments();
-                }
-            }
+            
 
         }
 
         $body.on('click', '.activate-comment-load', function () {
-            addComments();
+            loadComments = true;
+            $(this).hide();
+            const modlogUrl = `${TBUtils.baseDomain}${location.pathname}.json${location.search}`
+            getComments(modlogUrl);
         });
 
         // NER support.
         window.addEventListener('TBNewThings', function () {
-            if (commentLoadActive) {
-                addComments();
+            console.log('newThings')
+            if(loadComments && nerActive) {
+                const linkUrl = new URL(location);
+                linkUrl.searchParams.set('after', lastAfter);
+                const modlogUrl = `${TBUtils.baseDomain}${linkUrl.pathname}.json${linkUrl.search}`;
+                getComments(modlogUrl);
+
             }
         });
     };
