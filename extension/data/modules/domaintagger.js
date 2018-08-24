@@ -202,7 +202,7 @@ function domaintagger() {
         $body.on('click', '.add-domain-tag', function (e) {
             var $this = $(e.target),
                 $domain = $this.siblings('.domain'),
-                currentColor = TBUtils.colorNameToHex($domain.data('color')),
+                currentColor = TBUtils.colorNameToHex($domain.data('color') || '#cee3f8db'),
                 $thing = $this.closest('.thing'),
                 domain = getThingDomain($thing),
                 //subreddit = ($thing.find('a.subreddit').text() || $('.titlebox h1.redditname a').text());
