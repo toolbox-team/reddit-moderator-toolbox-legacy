@@ -4,8 +4,8 @@
     "author": "toolbox team",
     "short_name": "toolbox",
     "description": "A set of tools to be used by moderators on reddit in order to make their jobs easier.",
-    "version": "3.7.5",
-    "version_name": "3.7.5: \"Cleaning Cockcroach\"",
+    "version": "3.7.8",
+    "version_name": "3.7.8: \"Cleaning Cockcroach\"",
     "options_page": "data/background/options.html",
     "applications": {
         "gecko": {
@@ -69,6 +69,7 @@
                 "data/libs/jquery_migrate.js",
                 "data/libs/tbplugins.js",
                 "data/libs/snuownd.js",
+                "data/libs/purify.js",
                 "data/libs/codemirror/codemirror.js",
                 "data/libs/codemirror/addon/closebrackets.js",
                 "data/libs/codemirror/addon/css-hint.js",

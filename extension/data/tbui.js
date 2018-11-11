@@ -2,6 +2,10 @@
     TBui.longLoadArray = [];
     TBui.longLoadArrayNonPersistent = [];
 
+    TBui.purify = function(input) {
+        return DOMPurify.sanitize(input);
+    };
+
     // Icons NOTE: string line length is ALWAYS 152 chars
     TBui.iconWrench = `iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAHaSURBVDjLlZO7a1NRHMfzfzhIKQ5OHR1d
                     dRRBLA6lg4iTd5PSas37YR56Y2JiHgg21uoFxSatCVFjbl5iNBBiMmUJgWwZhCB4pR9/V4QKfSQdDufF5/v7nu85xwJYprV0Oq0kk8luIpEw4vG48f/eVDiVSikCTobDIePxmGg0yokEBO4OBgNGoxH5

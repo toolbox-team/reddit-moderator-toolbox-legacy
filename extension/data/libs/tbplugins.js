@@ -33,7 +33,7 @@
         }
         if (typeof message === 'object') {
             if (message instanceof jQuery) {
-                message = 'jQuery object (see browser console) :\n' + $('<div>').append($(message).clone()).html();
+                message = 'jQuery object (see browser console) :\n' + $('<div>').append($(TBui.purify(message).clone()).html();
                 console.log(orignalMessage);
             } else {
                 try {

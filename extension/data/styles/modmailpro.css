@@ -36,7 +36,7 @@ html.tb-nightmode,
 /* nightmode for firefox. Thanks to /u/tizorres
 */
 
-.ThreadListing__threads,
+.tb-nightmode-firefox .ThreadListing__threads,
 .tb-nightmode-firefox body {
     background: #000000
 }

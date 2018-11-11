@@ -717,7 +717,7 @@ function modmatrix() {
 
         const $nerNext = $body.find('#NERStaticLink');
         const nerActive = $nerNext.length;
-        let loadComments = false; 
+        let loadComments = false;
         const parser = SnuOwnd.getParser(SnuOwnd.getRedditRenderer())
         $('.content .menuarea').append('<div class="spacer"><a href="javascript:;" class="activate-comment-load tb-general-button" >Load text of removed comments.</a></div>');
 
@@ -734,27 +734,31 @@ function modmatrix() {
                     if(child.data.target_body && child.data.action === 'removecomment') {
                         const $listingItem = $modActions.find(`tr.modactions[data-fullname="${child.data.id}"] .description`);
 
+                        // Render string markdown to HTML first.
+                        const renderedMarkdown = TBui.purify(parser.render(child.data.target_body));
+
+                        // Put it in a template.
                         const comment = `
                             <div class="removed_comment_text">
                                 <div class="md">
-                                    
-${parser.render(child.data.target_body)}
-                                    
+
+${renderedMarkdown}
+
                                 </div>
                             </div>
                         `;
 
-                        $listingItem.append(comment)
+                        $listingItem.append(comment);
                     }
-                    
+
                 });
                 TB.ui.longLoadSpinner(false);
 
 
-                
+
             });
 
-            
+
 
         }
 

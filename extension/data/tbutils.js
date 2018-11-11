@@ -697,7 +697,7 @@ function initwrapper() {
         //            });
         TBUtils.template = function (tpl, variables) {
             return tpl.replace(/{{([^}]+)}}/g, function (match, variable) {
-                return variables[variable];
+                return TBui.purify(variables[variable]);
             });
         };
 
