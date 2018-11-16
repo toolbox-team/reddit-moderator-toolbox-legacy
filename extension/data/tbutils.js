@@ -700,7 +700,7 @@ function initwrapper() {
                 if(safeHTML && safeHTML.includes(variable)) {
                     return variables[variable];
                 } else {
-                    return variables[variable];
+                    return TBui.purify(variables[variable]);
                 }
 
             });
