@@ -379,7 +379,7 @@ function comments() {
                             'bannedBy': bannedBy,
                             'modButtons': modButtons,
                             'commentNestInfo': commentNestInfo
-                        });
+                        }, ['modButtons']);
 
 
                         htmlCommentView = htmlCommentView + htmlConstructedComment;
@@ -669,7 +669,7 @@ function comments() {
                                         'linkUrl': linkUrl,
                                         'bannedBy': bannedBy,
                                         'modButtons': modButtons
-                                    });
+                                    }, [modButtons]);
                                     htmlProfileCommentViewBuffer = htmlProfileCommentViewBuffer + htmlConstructedComment;
                                 }
                             });

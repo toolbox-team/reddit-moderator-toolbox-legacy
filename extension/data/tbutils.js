@@ -695,9 +695,14 @@ function initwrapper() {
         //                'title':  title_to_url('this is a title we pulled from a post),
         //                'link_id': '2kwx2o'
         //            });
-        TBUtils.template = function (tpl, variables) {
+        TBUtils.template = function (tpl, variables, safeHTML) {
             return tpl.replace(/{{([^}]+)}}/g, function (match, variable) {
-                return variables[variable];
+                if(safeHTML && safeHTML.includes(variable)) {
+                    return variables[variable];
+                } else {
+                    return variables[variable];
+                }
+
             });
         };
 
