@@ -373,7 +373,7 @@ function comments() {
                             'score': score,
                             'createdUTC': TBUtils.timeConverterRead(createdUTC),
                             'createdTimeAgo': createdTimeAgo,
-                            'bodyHtml': TBUtils.htmlDecode(bodyHtml),
+                            'bodyHtml': TBui.purify(TBUtils.htmlDecode(bodyHtml)),
                             'permaLinkComment': permaLinkComment,
                             'threadPermalink': threadPermalink,
                             'bannedBy': bannedBy,
