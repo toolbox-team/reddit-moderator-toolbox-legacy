@@ -276,15 +276,7 @@ function modbar() {
         if (enableModSubs) {
             var subList = '',
                 livefilterCount,
-                subredditColorSalt = self.setting('subredditColorSalt'),
-                mySubsTemplate = `
-<div id="tb-my-subreddits">
-    <input id="tb-livefilter-input" type="text" placeholder="live search" value="">
-    <span class="tb-livefilter-count">{{livefilterCount}}</span>
-    <br>
-    <table id="tb-my-subreddit-list">{{subList}}</table>
-</div>
-`;
+                subredditColorSalt = self.setting('subredditColorSalt');
 
             TBUtils.getModSubs(function () {
                 self.log('got mod subs');
@@ -304,10 +296,13 @@ function modbar() {
                 });
                 livefilterCount = TBUtils.mySubs.length;
 
-                var modSubsPopupContent = TBUtils.template(mySubsTemplate, {
-                    'livefilterCount': livefilterCount,
-                    'subList': subList
-                });
+
+                var modSubsPopupContent = `<div id="tb-my-subreddits">
+                    <input id="tb-livefilter-input" type="text" placeholder="live search" value="">
+                    <span class="tb-livefilter-count">${livefilterCount}</span>
+                    <br>
+                    <table id="tb-my-subreddit-list">${subList}</table>
+                </div>`;
 
 
                 $body.on('click', '#tb-toolbar-mysubs', function () {

@@ -689,24 +689,6 @@ function initwrapper() {
             return title || '_';
         };
 
-        // Easy way to use templates. Usage example:
-        //    TBUtils.template('/r/{{subreddit}}/comments/{{link_id}}/{{title}}/', {
-        //                'subreddit': 'toolbox',
-        //                'title':  title_to_url('this is a title we pulled from a post),
-        //                'link_id': '2kwx2o'
-        //            });
-        TBUtils.template = function (tpl, variables, safeHTML) {
-            return tpl.replace(/{{([^}]+)}}/g, function (match, variable) {
-                if(safeHTML && safeHTML.includes(variable)) {
-                    return variables[variable];
-                } else {
-                    return TBui.purify(variables[variable]);
-                }
-
-            });
-        };
-
-
         TBUtils.alert = function (message, callback, showClose) {
             var $noteDiv = $(`<div id="tb-notification-alert"><span>${message}</span></div>`);
             if (showClose) {

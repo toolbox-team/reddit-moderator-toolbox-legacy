@@ -9,37 +9,25 @@ function support() {
 
     self.init = function() {
         let $body = $('body');
-        const debugTemplate = `
-  
----   
+
+        const debugInfo = TBUtils.debugInformation();
+        const submissionAddition = `
+
+---
 ***Toolbox debug information***
 
 Info| &nbsp;
 ---|---
-*Toolbox version*|{{toolboxVersion}}
-*Browser name*|{{browserName}}
-*Browser version*|{{browserVersion}}
-*Platform information*|{{platformInfo}}
-*Beta Mode*|{{betaMode}}
-*Debug Mode*|{{debugMode}}
-*Compact Mode*|{{compactMode}}
-*Advanced Settings*|{{advancedSettings}}
-*Cookies Enabled*|{{cookiesEnabled}}
+*Toolbox version*|${debugInfo.toolboxVersion}
+*Browser name*|${debugInfo.browser}
+*Browser version*|${debugInfo.browserVersion}
+*Platform information*|${debugInfo.platformInformation}
+*Beta Mode*|${debugInfo.betaMode}
+*Debug Mode*|${debugInfo.debugMode}
+*Compact Mode*|${debugInfo.compactMode}
+*Advanced Settings*|${debugInfo.advancedSettings}
+*Cookies Enabled*|${debugInfo.cookiesEnabled}
 `;
-
-
-        const debugInfo = TBUtils.debugInformation();
-        const submissionAddition = TBUtils.template(debugTemplate, {
-            'toolboxVersion': debugInfo.toolboxVersion,
-            'browserName':  debugInfo.browser ,
-            'browserVersion': debugInfo.browserVersion,
-            'platformInfo': debugInfo.platformInformation,
-            'betaMode': debugInfo.betaMode,
-            'debugMode': debugInfo.debugMode,
-            'compactMode': debugInfo.compactMode,
-            'advancedSettings': debugInfo.advancedSettings,
-            'cookiesEnabled': debugInfo.cookiesEnabled
-        });
 
         // If we are on the submit page we add debug information when a user makes a post.
         if(location.pathname.match(/\/r\/toolbox\/submit\/?/) || location.pathname.match(/\/r\/tb_dev\/submit\/?/)) {

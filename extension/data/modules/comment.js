@@ -185,45 +185,6 @@ function comments() {
 
             $body.on('click', '.tb-loadFlat', function () {
 
-            // Template for comment construction Note: We do not include all user functions like voting since flat view removes all context. This is purely for mod related stuff.
-                var htmlComment = `
-<div class="thing comment noncollapsed id-{{thingClasses}}" onclick="click_thing(this)" data-fullname="{{name}}">
-<div class="entry mod-button" subreddit="{{subreddit}}">
-<p class="tagline">
-    <a href="/user/{{author}}" class="{{authorClass}} may-blank">{{author}}</a>
-    <span class="userattrs">
-    </span>
-    <span class="score">{{score}} points</span>
-    <time title="{{createdUTC}}" datetime="{{createdTimeAgo}}" class="live-timestamp timeago">{{createdTimeAgo}}</time>
-</p>
-<form class="usertext">
-    <div class="usertext-body">
-    {{bodyHtml}}
-    </div>
-</form>
-<ul class="flat-list buttons">
-    <li class="first">
-        <a href="{{permaLinkComment}}" class="bylink" rel="nofollow" target="_blank">permalink</a>
-    </li>
-    <li>
-        <a href="javascript:;" class="global-mod-button">mod</a>
-    </li>
-    <li>
-        <a href="{{permaLinkComment}}/?context=3" class="bylink" rel="nofollow"  target="_blank">context</a>
-    </li>
-    <li>
-        <a href="{{threadPermalink}}" class="bylink" rel="nofollow"  target="_blank">full comments</a>
-    </li>
-    {{bannedBy}}
-    {{modButtons}}
-    <li>
-        <a class="" href="javascript:void(0)" onclick="return reply(this)">reply</a></li>
-</ul>
-</div>
-<div class="child"></div>
-<div class="comment-nest-info">{{commentNestInfo}}</div>
-</div>`;
-
                 // remove modtools since we don't want mass actions out of context comments.
                 $body.find('.tabmenu li .modtools-on').closest('li').remove();
                 $body.find('.tabmenu li #modtab-threshold').closest('li').remove();
@@ -364,22 +325,46 @@ function comments() {
 
                         // Constructing the comment.
 
-                        var htmlConstructedComment = TBUtils.template(htmlComment, {
-                            'thingClasses': thingClasses,
-                            'name': name,
-                            'subreddit': subreddit,
-                            'author': author,
-                            'authorClass': authorClass,
-                            'score': score,
-                            'createdUTC': TBUtils.timeConverterRead(createdUTC),
-                            'createdTimeAgo': createdTimeAgo,
-                            'bodyHtml': TBui.purify(TBUtils.htmlDecode(bodyHtml)),
-                            'permaLinkComment': permaLinkComment,
-                            'threadPermalink': threadPermalink,
-                            'bannedBy': bannedBy,
-                            'modButtons': modButtons,
-                            'commentNestInfo': commentNestInfo
-                        }, ['modButtons']);
+
+
+                        var htmlConstructedComment = `
+                        <div class="thing comment noncollapsed id-${thingClasses}" onclick="click_thing(this)" data-fullname="${name}">
+                        <div class="entry mod-button" subreddit="${subreddit}">
+                        <p class="tagline">
+                            <a href="/user/${author}" class="${authorClass} may-blank">${author}</a>
+                            <span class="userattrs">
+                            </span>
+                            <span class="score">${score} points</span>
+                            <time title="${TBUtils.timeConverterRead(createdUTC)}" datetime="${createdTimeAgo}" class="live-timestamp timeago">${createdTimeAgo}</time>
+                        </p>
+                        <form class="usertext">
+                            <div class="usertext-body">
+                            ${TBui.purify(TBUtils.htmlDecode(bodyHtml))}
+                            </div>
+                        </form>
+                        <ul class="flat-list buttons">
+                            <li class="first">
+                                <a href="${permaLinkComment}" class="bylink" rel="nofollow" target="_blank">permalink</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="global-mod-button">mod</a>
+                            </li>
+                            <li>
+                                <a href="${permaLinkComment}/?context=3" class="bylink" rel="nofollow"  target="_blank">context</a>
+                            </li>
+                            <li>
+                                <a href="${threadPermalink}" class="bylink" rel="nofollow"  target="_blank">full comments</a>
+                            </li>
+                            ${bannedBy}
+                            ${modButtons}
+                            <li>
+                                <a class="" href="javascript:void(0)" onclick="return reply(this)">reply</a></li>
+                        </ul>
+                        </div>
+                        <div class="child"></div>
+                        <div class="comment-nest-info">${commentNestInfo}</div>
+                        </div>
+                    `;
 
 
                         htmlCommentView = htmlCommentView + htmlConstructedComment;
@@ -532,46 +517,6 @@ function comments() {
                     subredditsearch = subredditsearch.replace(/\/?r\//g, '');
                     subredditsearch = TBUtils.htmlEncode(subredditsearch);
 
-
-                    // Template for comment construction in the userprofile. Note: we do not include things like vote arrows since this is for mod related stuff. Also because voting from a profile doesn't work anyway.
-                    var htmlCommentProfile = `
-<div class="thing comment noncollapsed id-{{thingClasses}}" onclick="click_thing(this)" data-fullname="{{name}}"  data-author="{{author}}"data-subreddit="{{subreddit}}">
-<p class="parent">
-    <a href="{{linkUrl}}" class="title" rel="nofollow">{{submissionTitle}}</a>
-    by  <a href="https://www.reddit.com/user/{{linkAuthor}}" class="author ">{{linkAuthor}}</a>
-    in  <a href="https://www.reddit.com/r/{{subreddit}}/" class="subreddit hover">{{subreddit}}</a><br>
-</p>
-<div class="entry mod-button" subreddit="{{subreddit}}">
-    <p class="tagline">
-        <a href="/user/{{author}}" class="{{authorClass}} may-blank">{{author}}</a>
-        <span class="userattrs">
-        </span>
-        <span class="score">{{score}} points</span>
-        <time title="{{createdUTC}}" datetime="{{createdTimeAgo}}" class="live-timestamp timeago">{{createdTimeAgo}}</time>
-    </p>
-    <form class="usertext">
-        <div class="usertext-body">
-        {{bodyHtml}}
-        </div>
-    </form>
-    <ul class="flat-list buttons">
-        <li class="first">
-            <a href="{{permaLinkComment}}" class="bylink" rel="nofollow" target="_blank">permalink</a>
-        </li>
-        <li>
-            <a href="{{permaLinkComment}}/?context=3" class="bylink" rel="nofollow"  target="_blank">context</a>
-        </li>
-        <li>
-            <a href="{{threadPermalink}}" class="bylink" rel="nofollow"  target="_blank">full comments</a>
-        </li>
-        {{bannedBy}}
-        {{modButtons}}
-    </ul>
-</div>
-<div class="child"></div>
-</div>
-<div class="clearleft"></div>`;
-
                     var htmlProfileCommentViewBuffer = '';
                     var hasHits = false;
                     $('.sitetable.linklisting').empty();
@@ -601,8 +546,7 @@ function comments() {
                                     linkId = value.data.link_id,
                                     linkUrl = value.data.link_url;
 
-                                var hit = true,
-                                    _htmlCommentProfile = htmlCommentProfile;
+                                var hit = true;
 
                                 for (var option in options) {
                                     if (!value.data[option] || !options[option].test(`${value.data[option]}`)) {
@@ -646,30 +590,49 @@ function comments() {
         `;
                                     }
 
+                                    var htmlConstructedComment = `
+                                    <div class="thing comment noncollapsed id-${thingClasses}" onclick="click_thing(this)" data-fullname="${name}"  data-author="${author}"data-subreddit="${subreddit}">
+                                    <p class="parent">
+                                        <a href="${linkUrl}" class="title" rel="nofollow">${submissionTitle}</a>
+                                        by  <a href="https://www.reddit.com/user/${linkAuthor}" class="author ">${linkAuthor}</a>
+                                        in  <a href="https://www.reddit.com/r/${subreddit}/" class="subreddit hover">${subreddit}</a><br>
+                                    </p>
+                                    <div class="entry mod-button" subreddit="${subreddit}">
+                                        <p class="tagline">
+                                            <a href="/user/${author}" class="${authorClass} may-blank">${author}</a>
+                                            <span class="userattrs">
+                                            </span>
+                                            <span class="score">${score} points</span>
+                                            <time title="${TBUtils.timeConverterRead(createdUTC)}" datetime="${createdTimeAgo}" class="live-timestamp timeago">${createdTimeAgo}</time>
+                                        </p>
+                                        <form class="usertext">
+                                            <div class="usertext-body">
+                                            ${TBUtils.htmlDecode(bodyHtml)}
+                                            </div>
+                                        </form>
+                                        <ul class="flat-list buttons">
+                                            <li class="first">
+                                                <a href="${permaLinkComment}" class="bylink" rel="nofollow" target="_blank">permalink</a>
+                                            </li>
+                                            <li>
+                                                <a href="${permaLinkComment}/?context=3" class="bylink" rel="nofollow"  target="_blank">context</a>
+                                            </li>
+                                            <li>
+                                                <a href="${threadPermalink}" class="bylink" rel="nofollow"  target="_blank">full comments</a>
+                                            </li>
+                                            ${bannedBy}
+                                            ${modButtons}
+                                        </ul>
+                                    </div>
+                                    <div class="child"></div>
+                                    </div>
+                                    <div class="clearleft"></div>`;
+
                                     // Don't render href if author is [deleted]
                                     if(linkAuthor == '[deleted]'){
-                                        _htmlCommentProfile = htmlCommentProfile.replace('<a href="https://www.reddit.com/user/{{linkAuthor}}" class="author ">{{linkAuthor}}</a>','<span class="author">{{linkAuthor}}</span>');
+                                        htmlConstructedComment = htmlConstructedComment.replace('<a href="https://www.reddit.com/user/[deleted]" class="author ">[deleted]</a>','<span class="author">[deleted]</span>');
                                     }
 
-                                    // Constructing the comment.
-                                    var htmlConstructedComment = TBUtils.template(_htmlCommentProfile, {
-                                        'linkAuthor': linkAuthor,
-                                        'submissionTitle': submissionTitle,
-                                        'thingClasses': thingClasses,
-                                        'name': name,
-                                        'subreddit': subreddit,
-                                        'author': author,
-                                        'authorClass': authorClass,
-                                        'score': score,
-                                        'createdUTC': TBUtils.timeConverterRead(createdUTC),
-                                        'createdTimeAgo': createdTimeAgo,
-                                        'bodyHtml': TBUtils.htmlDecode(bodyHtml),
-                                        'permaLinkComment': permaLinkComment,
-                                        'threadPermalink': threadPermalink,
-                                        'linkUrl': linkUrl,
-                                        'bannedBy': bannedBy,
-                                        'modButtons': modButtons
-                                    }, [modButtons]);
                                     htmlProfileCommentViewBuffer = htmlProfileCommentViewBuffer + htmlConstructedComment;
                                 }
                             });

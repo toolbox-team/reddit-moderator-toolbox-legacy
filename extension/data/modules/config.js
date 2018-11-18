@@ -34,7 +34,7 @@ function tbconfig() {
                 </br>
                 </br><a href="/r/${subredditConfig}/w/pages/" class="tb-general-button">All Wiki Pages</a>
                 </br><a ${((unManager) ? `style="display:none;"` : ``)} href="/r/${subredditConfig}/about/usernotes/" class="tb-general-button">Manage Usernotes</a>
-                
+
                 </span>
                 `,
                         footer: ''
@@ -412,7 +412,7 @@ function tbconfig() {
                                                     <li><i>F11:</i> Fullscreen</li>
                                                     <li><i>Esc:</i> Close Fullscreen</li>
                                                     <li><i>Ctrl-F / Cmd-F:</i> Start searching</li>
-                                                    <li><i>Ctrl-Alt-F / Cmd-Alt-F:</i> Persistent search (dialog doesn't autoclose) </li>   
+                                                    <li><i>Ctrl-Alt-F / Cmd-Alt-F:</i> Persistent search (dialog doesn't autoclose) </li>
                                                     <li><i>Ctrl-G / Cmd-G:</i> Find next</li>
                                                     <li><i>Shift-Ctrl-G / Shift-Cmd-G:</i>  Find previous</li>
                                                     <li><i>Shift-Ctrl-F / Cmd-Option-F:</i> Replace</li>
@@ -611,46 +611,33 @@ function tbconfig() {
                         label = TBUtils.htmlEncode(label);
                     }
 
-                    var removalReasonText = unescape(config.removalReasons.reasons[i].text) || '',
-                        removalReasonTitle = config.removalReasons.reasons[i].title || '',
-                        removalReasonFlairText = config.removalReasons.reasons[i].flairText || '',
-                        removalReasonFlairCSS = config.removalReasons.reasons[i].flairCSS || '';
+                    var removalReasonText = TBui.purify(unescape(config.removalReasons.reasons[i].text) || ''),
+                        removalReasonTitle = TBui.purify(config.removalReasons.reasons[i].title || ''),
+                        removalReasonFlairText = TBui.purify(config.removalReasons.reasons[i].flairText || ''),
+                        removalReasonFlairCSS = TBui.purify(config.removalReasons.reasons[i].flairCSS || '');
 
                     var removalReasonTemplate = `
-                <tr class="removal-reason" data-reason="{{i}}" data-subreddit="{{subreddit}}">
+                <tr class="removal-reason" data-reason="${i}" data-subreddit="${subreddit}">
                     <td class="removal-reasons-buttons">
-                        <a href="javascript:;" data-reason="{{i}}" data-subreddit="{{subreddit}}" class="edit"><img src="data:image/png;base64,{{uiCommentEdit}}"></a> <br>
-                        <a href="javascript:;" data-reason="{{i}}" data-subreddit="{{subreddit}}" class="delete"><img src="data:image/png;base64,{{uiCommentRemove}}"></a>
+                        <a href="javascript:;" data-reason="${i}" data-subreddit="${subreddit}" class="edit"><img src="data:image/png;base64,${TBui.iconCommentsEdit}"></a> <br>
+                        <a href="javascript:;" data-reason="${i}" data-subreddit="${subreddit}" class="delete"><img src="data:image/png;base64,${TBui.iconCommentRemove}"></a>
                     </td>
-                    <td class="removal-reasons-content" data-reason="{{i}}">
-                        <span class="removal-reason-label" data-for="reason-{{subreddit}}-{{i++}}"><span><h3 class="removal-title">{{removalReasonTitle}}</h3>{{label}}</span></span><br>
+                    <td class="removal-reasons-content" data-reason="${i}">
+                        <span class="removal-reason-label" data-for="reason-${subreddit}-${i++}"><span><h3 class="removal-title">${removalReasonTitle}</h3>${label}</span></span><br>
                         <span class="removal-reason-edit">
-                            <textarea class="edit-area">{{removalReasonText}}</textarea><br/>
-                            <input type="text" name="removal-title" placeholder="removal reason title" value="{{removalReasonTitle}}"/><br/>
-                            <input type="text" name="flair-text" placeholder="flair text" value="{{removalReasonFlairText}}"/><br/>
-                            <input type="text" name="flair-css" placeholder="flair css class" value="{{removalReasonFlairCSS}}"/><br/>
+                            <textarea class="edit-area">${TBUtils.escapeHTML(removalReasonText)}</textarea><br/>
+                            <input type="text" name="removal-title" placeholder="removal reason title" value="${removalReasonTitle}"/><br/>
+                            <input type="text" name="flair-text" placeholder="flair text" value="${removalReasonFlairText}"/><br/>
+                            <input type="text" name="flair-css" placeholder="flair css class" value="${removalReasonFlairCSS}"/><br/>
                             <input type="text" name="edit-note" placeholder="reason for wiki edit (optional)" /><br>
                             <input class="save-edit-reason tb-action-button" type="button" value="Save reason" /><input class="cancel-edit-reason tb-action-button" type="button" value="Cancel" />
                         </span>
                     </td>
                 </tr>`;
 
-                    var removalReasonTemplateHTML = TBUtils.template(removalReasonTemplate, {
-                        'i': i,
-                        'subreddit': subreddit,
-                        'i++': (i++),
-                        'label': label,
-                        'removalReasonText': TBUtils.escapeHTML(removalReasonText),
-                        'removalReasonTitle': removalReasonTitle,
-                        'removalReasonFlairText': removalReasonFlairText,
-                        'removalReasonFlairCSS': removalReasonFlairCSS,
-                        'uiCommentRemove': TBui.iconCommentRemove,
-                        'uiCommentEdit': TBui.iconCommentsEdit
-                    });
-
                     var $removalReasonsList = $body.find('.edit_removal_reasons #tb-removal-reasons-list');
 
-                    $removalReasonsList.append(removalReasonTemplateHTML);
+                    $removalReasonsList.append(removalReasonTemplate);
                 });
 
             }
@@ -680,7 +667,7 @@ function tbconfig() {
                     var removalReasonTemplateHTML = `
                 <tr class="removal-reason" data-reason="${index}" data-subreddit="${subreddit}">
                     <td class="removal-reasons-sort-buttons">
-                        <a href="javascript:;" class="tb-sort-up"><img src="data:image/png;base64,${TBui.topIcon}"></a> 
+                        <a href="javascript:;" class="tb-sort-up"><img src="data:image/png;base64,${TBui.topIcon}"></a>
                         <a href="javascript:;" class="tb-sort-down"><img src="data:image/png;base64,${TBui.bottomIcon}"></a>
                     </td>
                     <td class="removal-reasons-content">
@@ -712,47 +699,38 @@ function tbconfig() {
                         label = TBUtils.htmlEncode(label);
                     }
                     var macro = config.modMacros[i];
-                    var modMacroText = unescape(macro.text) || '';
-                    var modMacroTitle = macro.title || '';
+                    var modMacroText = TBui.purify(unescape(macro.text) || '');
+                    var modMacroTitle = TBui.purify(macro.title || '');
 
                     var modMacroTemplate = `
-                <tr class="mod-macro" data-macro="{{i}}" data-subreddit="{{subreddit}}">
+                <tr class="mod-macro" data-macro="${i}" data-subreddit="${subreddit}">
                     <td class="mod-macros-buttons">
-                        <a href="javascript:;" data-macro="{{i}}" data-subreddit="{{subreddit}}" class="edit"><img src="data:image/png;base64,{{uiMacroEdit}}"></a> <br>
-                        <a href="javascript:;" data-macro="{{i}}" data-subreddit="{{subreddit}}" class="delete"><img src="data:image/png;base64,{{uiMacroRemove}}"></a>
+                        <a href="javascript:;" data-macro="${i}" data-subreddit="${subreddit}" class="edit"><img src="data:image/png;base64,${TBui.iconCommentsEdit}"></a> <br>
+                        <a href="javascript:;" data-macro="${i}" data-subreddit="${subreddit}" class="delete"><img src="data:image/png;base64,${TBui.iconCommentRemove}"></a>
                     </td>
-                    <td class="mod-macros-content" data-macro="{{i}}">
-                        <span class="mod-macro-label" data-for="macro-{{subreddit}}-{{i}}"><span><h3 class="macro-title">{{modMacroTitle}}</h3>{{label}}</span></span><br>
+                    <td class="mod-macros-content" data-macro="${i}">
+                        <span class="mod-macro-label" data-for="macro-${subreddit}-${i}"><span><h3 class="macro-title">${modMacroTitle}</h3>${label}</span></span><br>
                         <span class="mod-macro-edit">
-                            <textarea class="edit-area">{{modMacroText}}</textarea><br/>
-                            <input type="text" class="macro-title" name="macro-title" placeholder="macro title" value="{{modMacroTitle}}" /><br>
-                            <label><input type="checkbox" class="{{i}}-distinguish" id="distinguish">distinguish</label>
-                            <label><input type="checkbox" class="{{i}}-banuser" id="banuser">ban user</label>
-                            <label><input type="checkbox" class="{{i}}-muteuser" id="muteuser">mute user</label>
-                            <label><input type="checkbox" class="{{i}}-removeitem" id="removeitem">remove item</label>
-                            <label><input type="checkbox" class="{{i}}-approveitem" id="approveitem">approve item</label>
-                            <label><input type="checkbox" class="{{i}}-lockthread" id="lockthread">lock post</label>
-                            <label><input type="checkbox" class="{{i}}-sticky" id="sticky">sticky comment</label>
-                            <label><input type="checkbox" class="{{i}}-archivemodmail" id="archivemodmail">archive modmail</label>
-                            <label><input type="checkbox" class="{{i}}-highlightmodmail" id="highlightmodmail">highlight modmail</label><br>
+                            <textarea class="edit-area">${modMacroText}</textarea><br/>
+                            <input type="text" class="macro-title" name="macro-title" placeholder="macro title" value="${modMacroTitle}" /><br>
+                            <label><input type="checkbox" class="${i}-distinguish" id="distinguish">distinguish</label>
+                            <label><input type="checkbox" class="${i}-banuser" id="banuser">ban user</label>
+                            <label><input type="checkbox" class="${i}-muteuser" id="muteuser">mute user</label>
+                            <label><input type="checkbox" class="${i}-removeitem" id="removeitem">remove item</label>
+                            <label><input type="checkbox" class="${i}-approveitem" id="approveitem">approve item</label>
+                            <label><input type="checkbox" class="${i}-lockthread" id="lockthread">lock post</label>
+                            <label><input type="checkbox" class="${i}-sticky" id="sticky">sticky comment</label>
+                            <label><input type="checkbox" class="${i}-archivemodmail" id="archivemodmail">archive modmail</label>
+                            <label><input type="checkbox" class="${i}-highlightmodmail" id="highlightmodmail">highlight modmail</label><br>
                             <input type="text" name="edit-note" placeholder="reason for wiki edit (optional)" /><br>
                             <input class="save-edit-macro tb-action-button" type="button" value="Save macro" /><input class="cancel-edit-macro tb-action-button" type="button" value="Cancel editing macro" />
                         </span>
                     </td>
                 </tr>`;
 
-                    var modMacroTemplateHTML = TBUtils.template(modMacroTemplate, {
-                        'i': i,
-                        'subreddit': subreddit,
-                        'label': label,
-                        'modMacroText': modMacroText,
-                        'modMacroTitle': modMacroTitle,
-                        'uiMacroRemove': TBui.iconCommentRemove,
-                        'uiMacroEdit': TBui.iconCommentsEdit
-                    });
 
                     var $removalReasonsList = $body.find('.edit_mod_macros #tb-mod-macros-list');
-                    $removalReasonsList.append(modMacroTemplateHTML);
+                    $removalReasonsList.append(modMacroTemplate);
 
                     $(`.${i}-distinguish`).prop('checked', macro.distinguish);
                     $(`.${i}-banuser`).prop('checked', macro.ban);
