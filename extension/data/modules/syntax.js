@@ -75,8 +75,8 @@ function syntax() {
         var $body = $('body'),
             selectedTheme = this.setting('selectedTheme'),
             enableWordWrap = this.setting('enableWordWrap');
-            
-            // This makes sure codemirror behaves and uses spaces instead of tabs. 
+
+            // This makes sure codemirror behaves and uses spaces instead of tabs.
         function betterTab(cm) {
             if (cm.somethingSelected()) {
                 cm.indentSelection('add');
@@ -92,7 +92,7 @@ function syntax() {
                                                     <li><i>F11:</i> Fullscreen</li>
                                                     <li><i>Esc:</i> Close Fullscreen</li>
                                                     <li><i>Ctrl-F / Cmd-F:</i> Start searching</li>
-                                                    <li><i>Ctrl-Alt-F / Cmd-Alt-F:</i> Persistent search (dialog doesn't autoclose) </li>   
+                                                    <li><i>Ctrl-Alt-F / Cmd-Alt-F:</i> Persistent search (dialog doesn't autoclose) </li>
                                                     <li><i>Ctrl-G / Cmd-G:</i> Find next</li>
                                                     <li><i>Shift-Ctrl-G / Shift-Cmd-G:</i>  Find previous</li>
                                                     <li><i>Shift-Ctrl-F / Cmd-Option-F:</i> Replace</li>
@@ -131,7 +131,7 @@ function syntax() {
                         'Esc': function(cm) {
                             if (cm.getOption('fullScreen')) cm.setOption('fullScreen', false);
                         },
-                        'Tab': betterTab, 
+                        'Tab': betterTab,
                         'Shift-Tab': function (cm) {
                             cm.indentSelection('subtract');
                         }
@@ -143,12 +143,8 @@ function syntax() {
             });
 
             // In order to make save buttons work we need to hijack  and replace them.
-            var tbSyntaxButtonsHTML = '<div id="tb-syntax-buttons">{{save}} - {{preview}}</div>';
+            var tbSyntaxButtons = `<div id="tb-syntax-buttons">${TB.ui.actionButton('save', 'tb-syntax-button-save')} - ${TB.ui.actionButton('preview', 'tb-syntax-button-preview')}</div>`;
 
-            var tbSyntaxButtons = TB.utils.template(tbSyntaxButtonsHTML, {
-                'save': TB.ui.actionButton('save', 'tb-syntax-button-save'),
-                'preview': TB.ui.actionButton('preview', 'tb-syntax-button-preview')
-            });
 
             $body.find('.sheets .buttons').before(tbSyntaxButtons);
 
@@ -214,7 +210,7 @@ function syntax() {
                         'Esc': function(cm) {
                             if (cm.getOption('fullScreen')) cm.setOption('fullScreen', false);
                         },
-                        'Tab': betterTab, 
+                        'Tab': betterTab,
                         'Shift-Tab': function (cm) {
                             cm.indentSelection('subtract');
                         }

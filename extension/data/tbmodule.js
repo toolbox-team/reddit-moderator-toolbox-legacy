@@ -91,19 +91,6 @@ function tbmodule() {
             let dispalyNone = 'display: none;',
                 settingContent = '';
 
-            let settingTemplate = `
-        <p id="tb-toolbox-{{settingName}}" style="{{display}}">
-            {{content}}&nbsp;
-            <a data-setting="{{settingName}}" href="javascript:;" class="tb-gen-setting-link tb-setting-link-{{settingName}}">
-                <img src="data:image/png;base64,${TB.ui.iconLink}">
-            </a>&nbsp;
-        </p>
-        <div style="display: none;" class="tb-setting-input tb-setting-input-{{settingName}}">
-            <input type="text" readonly="readonly" value="[{{settingName}}](#?tbsettings=toolbox&setting={{settingName}})"><br>
-            <input type="text" readonly="readonly" value="https://www.reddit.com/#?tbsettings=toolbox&setting={{settingName}}">
-        </div>
-        `;
-
             let settings = [
                 {
                     settingName: 'settingssub',
@@ -167,11 +154,18 @@ function tbmodule() {
             ];
 
             $.each(settings, function () {
-                settingContent += TB.utils.template(settingTemplate, {
-                    'settingName': this.settingName,
-                    'content': this.content,
-                    'display': this.display
-                });
+                settingContent += `
+                <p id="tb-toolbox-${this.settingName}" style="${this.display}">
+                    ${this.content}&nbsp;
+                    <a data-setting="${this.settingName}" href="javascript:;" class="tb-gen-setting-link tb-setting-link-${this.settingName}">
+                        <img src="data:image/png;base64,${TB.ui.iconLink}">
+                    </a>&nbsp;
+                </p>
+                <div style="display: none;" class="tb-setting-input tb-setting-input-${this.settingName}">
+                    <input type="text" readonly="readonly" value="[${this.settingName}](#?tbsettings=toolbox&setting=${this.settingName})"><br>
+                    <input type="text" readonly="readonly" value="https://www.reddit.com/#?tbsettings=toolbox&setting=${this.settingName}">
+                </div>
+                `;
             });
 
             $body.on('click', '.tb-gen-setting-link, .tb-module-setting-link', function () {

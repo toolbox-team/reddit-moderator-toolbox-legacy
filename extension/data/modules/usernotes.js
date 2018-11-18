@@ -877,28 +877,23 @@ function usernotes() {
 
                         TB.ui.longLoadSpinner(false, 'Usernotes loaded', TB.ui.FEEDBACK_POSITIVE);
 
-                        var infoHTML = `
-            <div class="tb-un-info">
-                <span class="tb-info">There are {{usercount}} users with {{notecount}} notes.</span>
-                <br> <input id="tb-unote-user-search" type="text" placeholder="search for user"> <input id="tb-unote-contents-search" type="text" placeholder="search for note contents">
-                <br><br>
-                <a id="tb-un-prune-sb" class="tb-general-button" href="javascript:;">Prune deleted/suspended profiles</a>
-                <label><input type="checkbox" class="tb-prune-old"/> Also prune notes from accounts that have been inactive for more than </label>
-                <select class="tb-prune-length">
-                    <option value="180">six-months</option>
-                    <option value="365">one-year</option>
-                    <option value="730">two-years</option>
-                    <option value="1095">three-years</option>
-                    <option value="1460">four-years</option>
-                    <option value="1825">five-years</option>
-                    <option value="2190">six-years</option>
-                </select>
-            </div></br></br>`;
-
-                        var infocontent = TB.utils.template(infoHTML, {
-                            'usercount': userCount,
-                            'notecount': noteCount
-                        });
+                        var infocontent = `
+                        <div class="tb-un-info">
+                            <span class="tb-info">There are ${userCount} users with ${noteCount} notes.</span>
+                            <br> <input id="tb-unote-user-search" type="text" placeholder="search for user"> <input id="tb-unote-contents-search" type="text" placeholder="search for note contents">
+                            <br><br>
+                            <a id="tb-un-prune-sb" class="tb-general-button" href="javascript:;">Prune deleted/suspended profiles</a>
+                            <label><input type="checkbox" class="tb-prune-old"/> Also prune notes from accounts that have been inactive for more than </label>
+                            <select class="tb-prune-length">
+                                <option value="180">six-months</option>
+                                <option value="365">one-year</option>
+                                <option value="730">two-years</option>
+                                <option value="1095">three-years</option>
+                                <option value="1460">four-years</option>
+                                <option value="1825">five-years</option>
+                                <option value="2190">six-years</option>
+                            </select>
+                        </div></br></br>`;
 
                         $siteTable.prepend(infocontent);
 
@@ -1019,11 +1014,9 @@ function usernotes() {
                     self.log(`refreshing user: ${user}`);
                     TB.utils.aboutUser(user, function (succ) {
 
-                        var $status = TB.utils.template('&nbsp;<span class="mod">[this user account is: {{status}}]</span>', {
-                            'status': succ ? 'active' : 'deleted'
-                        });
+                        var status = `&nbsp;<span class="mod">[this user account is: ${succ ? 'active' : 'deleted'}]</span>`;
 
-                        $userSpan.after($status);
+                        $userSpan.after(status);
                     });
                 }
             });
