@@ -336,19 +336,13 @@ function storagewrapper() {
 
 
         function SendInit() {
-            if(window.location.hostname === 'mod.reddit.com') {
-                setTimeout(function () {
-                    if(!$('body').hasClass('mod-toolbox-rd')) {
-                        var event = new CustomEvent('TBStorageLoaded');
-                        window.dispatchEvent(event);
-                    }
-                }, 1000);
-            } else {
-                setTimeout(function () {
+            let v4active = sessionStorage.getItem('v4active');
+            setTimeout(function () {
+                if(!v4active && !$('body').hasClass('mod-toolbox-rd')) {
                     var event = new CustomEvent('TBStorageLoaded');
                     window.dispatchEvent(event);
-                }, 10);
-            }
+                }
+            }, 1000);
         }
 
 
