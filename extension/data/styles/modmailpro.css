@@ -40,8 +40,9 @@ html.tb-nightmode,
 .tb-nightmode-firefox body {
     background: #000000
 }
-.tb-nightmode-firefox .App__header {
-    border-bottom: 1px solid #353535;
+.tb-nightmode-firefox .App__header,
+.tb-nightmode-firefox .App__page {
+    border-color: #353535;
     background-color: #000;
 }
 .tb-nightmode-firefox .Sidebar__title {
