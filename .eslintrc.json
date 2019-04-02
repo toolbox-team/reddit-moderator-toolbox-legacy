@@ -1,4 +1,7 @@
 {
+    "parserOptions": {
+        "ecmaVersion": 2017
+    },
     "env": {
         "browser": true,
         "jquery": true,
@@ -23,7 +26,7 @@
         "no-useless-escape": "warn",
         "no-constant-condition": "warn",
         "template-curly-spacing": [
-            "error", 
+            "error",
             "never"
         ],
         "indent": [
