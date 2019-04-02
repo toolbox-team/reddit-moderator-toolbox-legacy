@@ -21,34 +21,6 @@ function initwrapper() {
             TBUtils.modCheck = $('#modmail, #new_modmail').length > 0;
         }
 
-        // Let's get oauth information
-        // We fetch the data on page load but we don't access the variable directly.
-
-
-
-
-
-        // Token promise.
-        TBUtils.oauthToken = function oauthToken() {
-            return new Promise(function (resolve) {
-                chrome.runtime.sendMessage({action: 'oauthToken'}, resolve);
-            }).then(function(response) {
-                const responseObject = JSON.parse(response.oauthToken);
-                if (!responseObject.ERROR) {
-
-                    return responseObject.accessToken;
-                } else {
-                    $.log(`ERROR: ${responseObject.ERROR}`, false, SHORTNAME);
-                    throw new Error(`ERROR:${responseObject.ERROR}`);
-                }
-            });
-        };
-
-
-
-
-
-
         // If we are on new modmail we use www.reddit.com for all other instances we use whatever is the current domain.
         TBUtils.baseDomain = (window.location.hostname === 'mod.reddit.com' ? 'https://www.reddit.com' :  `https://${window.location.hostname}`);
 
@@ -1594,78 +1566,42 @@ function initwrapper() {
         //     console.log(error)
         // });
 
-        TBUtils.apiOauthPOST = function apiOauthPost(endpoint, data) {
-            // let's fetch the token we need first.
-            return TBUtils.oauthToken().then(function(token) {
-                return $.ajax({
+        /**
+         * Sends an authenticated request against the OAuth API from the
+         * background page.
+         * @param {string} method An HTTP verb
+         * @param {string} endpoint The path to request
+         * @param {any} data Data passed through to the AJAX `data` option
+         */
+        TBUtils.apiOauthRequest = function apiOauthRequest(method, endpoint, data) {
+            return new Promise((resolve, reject) => {
+                // let's fetch the token we need first.
+                chrome.runtime.sendMessage({
+                    action: 'tb-send-oauth-request',
                     url: `https://oauth.reddit.com/${endpoint}`,
-                    type: 'POST',
-                    data: data,
-                    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', `bearer ${token}`);},
-                }).then(function(data, textStatus, jqXHR) {
-                    return {
-                        data: data,
-                        textStatus: textStatus,
-                        jqXHR: jqXHR
-                    };
-                }, function(jqXHR, textStatus, errorThrown) {
-                    throw {
-                        jqXHR: jqXHR,
-                        textStatus: textStatus,
-                        errorThrown: errorThrown
-                    };
-
-                });
-            });
-        };
-
-        // Generic promise based POST request. Can be used to construct all api calls involving post.
-        TBUtils.apiOauthGET = function apiOauthPost(endpoint, data) {
-            // let's fetch the token we need first.
-            return TBUtils.oauthToken().then(function(token) {
-                return $.ajax({
-                    url: `https://oauth.reddit.com/${endpoint}`,
-                    type: 'GET',
-                    data: data,
-                    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', `bearer ${token}`);},
-                }).then(function(data, textStatus, jqXHR) {
-                    return {
-                        data: data,
-                        textStatus: textStatus,
-                        jqXHR: jqXHR
-                    };
-                }, function(jqXHR, textStatus, errorThrown) {
-                    throw {
-                        jqXHR: jqXHR,
-                        textStatus: textStatus,
-                        errorThrown: errorThrown
-                    };
-
-                });
-            });
-
-        };
-
-
-        //
-        // Reddit 'legacy' API stuff. Still very much in use.
-        //
-        TBUtils.getRatelimit = function getRatelimit(callback) {
-            TBUtils.getHead('/r/toolbox/wiki/ratelimit.json',
-                function (status, jqxhr) {
-                    var ratelimitRemaining = jqxhr.getResponseHeader('x-ratelimit-remaining'),
-                        ratelimitReset = jqxhr.getResponseHeader('x-ratelimit-reset');
-                    $.log(`ratelimitRemaining: ${ratelimitRemaining} ratelimitReset: ${ratelimitReset / 60}`, false, SHORTNAME);
-
-                    if (typeof callback !== 'undefined') {
-                        callback({
-                            'ratelimitRemaining': ratelimitRemaining,
-                            'ratelimitReset': ratelimitReset
-                        });
+                    method,
+                    data,
+                }, response => {
+                    if (response instanceof Error || response.errorThrown !== undefined) {
+                        reject(response);
+                    } else {
+                        resolve(response);
                     }
                 });
+            });
         };
 
+        /**
+         * Sends an authenticated POST request against the OAuth API.
+         * @param {string} endpoint The path to request
+         * @param {any} data Data passed through to the AJAX `data` option
+         */
+        TBUtils.apiOauthPOST = TBUtils.apiOauthRequest.bind(null, 'POST');
+        /**
+         * Sends an authenticated GET request against the OAuth API.
+         * @param {string} endpoint The path to request
+         */
+        TBUtils.apiOauthGET = TBUtils.apiOauthRequest.bind(null, 'GET');
 
         TBUtils.setWikiPrivate = function setWikiPrivate(page, subreddit, failAlert) {
             setWikiPrivate(subreddit, page, failAlert);

@@ -362,7 +362,7 @@ function notifiermod() {
 
             if (count < 1) {
 
-            // We are doing it like this to preserve other classes
+                // We are doing it like this to preserve other classes
                 $tb_modmail.removeClass('havemail');
                 $tb_modmail.addClass('nohavemail');
                 $tb_modmail.attr('title', 'no new mail!');
@@ -401,7 +401,7 @@ function notifiermod() {
 
             if (count < 1) {
 
-            // We are doing it like this to preserve other classes
+                // We are doing it like this to preserve other classes
                 $newmodmail.removeClass('havemail');
                 $tbNewModmail.removeClass('havemail');
                 $newmodmail.addClass('nohavemail');
@@ -410,7 +410,7 @@ function notifiermod() {
                 $newmodmail.attr('title', 'no new mod mail!');
 
             } else {
-            // We are doing it like this to preserve other classes
+                // We are doing it like this to preserve other classes
                 $newmodmail.removeClass('nohavemail');
                 $newmodmail.addClass('havemail');
                 $newmodmail.attr('title', 'new mod mail!');
@@ -451,8 +451,9 @@ function notifiermod() {
         function newModMailCheck() {
             if(!activeNewMMcheck) {
                 activeNewMMcheck = true;
-                setTimeout(function () {
-                    TBUtils.apiOauthGET('api/mod/conversations/unread/count').then(function(response) {
+                setTimeout(async function () {
+                    try {
+                        const response = await TBUtils.apiOauthGET('api/mod/conversations/unread/count');
                         let data = response.data;
                         let modmailFreshCount = data.highlighted + data.notifications + data.archived + data.new + data.inprogress + data.mod;
                         self.setting('newModmailCount', modmailFreshCount);
@@ -460,12 +461,10 @@ function notifiermod() {
 
                         updateNewModMailCount(modmailFreshCount, data);
                         updateAllTabs();
-                        activeNewMMcheck = false;
-
-                    }).catch(function(error) {
-                        self.log(error.jqXHR.responseText);
-                        activeNewMMcheck = false;
-                    });
+                    } catch (error) {
+                        self.log(`Error getting new modmail counts: ${error}`);
+                    }
+                    activeNewMMcheck = false;
                 }, 500);
             }
         }
@@ -585,8 +584,8 @@ function notifiermod() {
                 // Are we allowed to show a popup?
                 if (messageNotifications && count > unreadMessageCount) {
 
-                // set up an array in which we will load the last 100 messages that have been displayed.
-                // this is done through a array since the modqueue is in chronological order of post date, so there is no real way to see what item got send to queue first.
+                    // set up an array in which we will load the last 100 messages that have been displayed.
+                    // this is done through a array since the modqueue is in chronological order of post date, so there is no real way to see what item got send to queue first.
                     var pushedunread = self.setting('unreadPushed');
                     //$.log(consolidatedMessages);
                     if (consolidatedMessages) {
@@ -1039,7 +1038,7 @@ function notifiermod() {
         setInterval(getmessages, checkInterval);
 
         getmessages();
-    // Because firefox is "special" we wait a tiny bit and try again.
+        // Because firefox is "special" we wait a tiny bit and try again.
 
 
 
