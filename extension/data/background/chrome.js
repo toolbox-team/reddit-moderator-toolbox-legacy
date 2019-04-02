@@ -29,52 +29,48 @@ function getCookie(tries, callback) {
 
 }
 
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 
-        console.log(request);
+    console.log(request);
 
-        // Request to reload the extension. Let's do so.
-        if( request.action === 'tb-reload' ) {
-            console.log('reloading');
-            chrome.runtime.reload();
-            console.log('reloaded');
-            sendResponse();
-        }
+    // Request to reload the extension. Let's do so.
+    if( request.action === 'tb-reload' ) {
+        console.log('reloading');
+        chrome.runtime.reload();
+        console.log('reloaded');
+        sendResponse();
+    }
 
-        // Request to fetch the oauthToken data.
-        if(request.action === 'oauthToken') {
-            // This function will fetch the cookie and if there is no cookie attempt to create one by visiting modmail.
-            getCookie(1, function(tokenData) {
-                console.log('sending response');
-                console.log(tokenData);
-                sendResponse({oauthToken: tokenData});
-            });
-            // http://stackoverflow.com/questions/20077487/chrome-extension-message-passing-response-not-sent
-            return true;
+    // Request to fetch the oauthToken data.
+    if(request.action === 'oauthToken') {
+        // This function will fetch the cookie and if there is no cookie attempt to create one by visiting modmail.
+        getCookie(1, function(tokenData) {
+            console.log('sending response');
+            console.log(tokenData);
+            sendResponse({oauthToken: tokenData});
+        });
+        // http://stackoverflow.com/questions/20077487/chrome-extension-message-passing-response-not-sent
+        return true;
 
-        }
-        if(request.action === 'tb-global' ) {
-            console.log('global event');
+    }
+    if(request.action === 'tb-global' ) {
+        console.log('global event');
 
 
-            const message = {
-                action: request.globalEvent,
-                payload: request.payload
-            };
+        const message = {
+            action: request.globalEvent,
+            payload: request.payload
+        };
 
-            chrome.tabs.query({}, function(tabs) {
-                for (let i=0; i<tabs.length; ++i) {
-                    if(sender.tab.id !== tabs[i].id) {
-                        chrome.tabs.sendMessage(tabs[i].id, message);
-                    }
-
+        chrome.tabs.query({}, function(tabs) {
+            for (let i=0; i<tabs.length; ++i) {
+                if(sender.tab.id !== tabs[i].id) {
+                    chrome.tabs.sendMessage(tabs[i].id, message);
                 }
-            });
-            return true;
-        }
-    });
 
-
-
+            }
+        });
+        return true;
+    }
+});

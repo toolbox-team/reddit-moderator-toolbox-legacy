@@ -1,7 +1,7 @@
 function initwrapper() {
     (function (TBUtils) {
 
-    // We need these before we can do anything.
+        // We need these before we can do anything.
         TBUtils.modhash = $('form.logout input[name=uh]').val();
         TBUtils.logged = (TBUtils.modhash !== undefined || $('.App__header .Header__user').length > -1) ? $('span.user a:first').html() || $('.App__header .Header__user').html() : '';
 
@@ -254,7 +254,7 @@ function initwrapper() {
         // First run changes.
         if (TBUtils.shortVersion > lastVersion) {
 
-        // These need to happen for every version change
+            // These need to happen for every version change
             TBUtils.firstRun = true; // for use by other modules.
             TBStorage.setSetting(SETTINGS_NAME, 'lastVersion', TBUtils.shortVersion); //set last version to this version.
             getToolboxDevs();  //always repopulate tb devs for each version change
@@ -482,7 +482,7 @@ function initwrapper() {
                 '/': '&#x2F;'
             };
 
-            return String(html).replace(/[&<>"'\/]/g, function (s) {
+            return String(html).replace(/[&<>"'/]/g, function (s) {
                 return entityMap[s];
             });
         };
@@ -498,7 +498,7 @@ function initwrapper() {
                 '&#x2F;' : '/'
             };
 
-            return String(html).replace(/[&<>"'\/]/g, function (s) {
+            return String(html).replace(/[&<>"'/]/g, function (s) {
                 return entityMap[s];
             });
         };
@@ -717,7 +717,7 @@ function initwrapper() {
                     TBUtils.alert(note.text, function (resp) {
                         seenNotes.push(note.id);
                         TBStorage.setSetting(SETTINGS_NAME, 'seenNotes', seenNotes);
-                        if (note.link && note.link.match(/^(https?\:|\/)/i) && resp) window.open(note.link);
+                        if (note.link && note.link.match(/^(https?:|\/)/i) && resp) window.open(note.link);
                     }, false);
                 }
             }
@@ -799,7 +799,7 @@ function initwrapper() {
             } else if (Notification.permission !== 'denied') {
                 Notification.requestPermission(function (permission) {
 
-                // Whatever the user answers, we make sure we store the information
+                    // Whatever the user answers, we make sure we store the information
                     if (!('permission' in Notification)) {
                         Notification.permission = permission;
                     }
@@ -906,7 +906,7 @@ function initwrapper() {
         };
 
         TBUtils.replaceAll = function (find, replace, str) {
-            find = find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
+            find = find.replace(/([.*+?^=!:${}()|[\]/\\])/g, '\\$1');
             return str.replace(new RegExp(find, 'g'), replace);
         };
 
@@ -1237,12 +1237,12 @@ function initwrapper() {
 
 
 
-            // Lack of a better name, can be a thread_message or infobar.
+                // Lack of a better name, can be a thread_message or infobar.
                 var $threadBase = $($sender.closest('.Thread__message')[0] || $sender.find('.InfoBar')[0] || $sender);
                 var browserUrl = window.location.href;
 
 
-                var idRegex = new RegExp('.*mod\.reddit\.com\/mail\/.*?\/(.*?)$', 'i');
+                var idRegex = new RegExp('.*mod\\.reddit\\.com\\/mail\\/.*?\\/(.*?)$', 'i');
 
                 subreddit = $body.find('.ThreadTitle__community').text();
                 permalink = ($threadBase.find('.m-link').length ? `https://mod.reddit.com${$threadBase.find('.m-link').attr('href')}` : `https://mod.reddit.com/mail/perma/${browserUrl.match(idRegex)[1]}`);
@@ -1266,8 +1266,8 @@ function initwrapper() {
             // do our regular stuff to gather data.
 
 
-            // If we were passed in a .thing, we may have to walk down the tree to
-            // find the associated .entry
+                // If we were passed in a .thing, we may have to walk down the tree to
+                // find the associated .entry
 
 
                 var $entry = $($sender.closest('.entry')[0] || $sender.find('.entry')[0] || $sender);
@@ -1717,7 +1717,7 @@ function initwrapper() {
                     setTimeout(function () {
 
 
-                    // Set page access to 'mod only'.
+                        // Set page access to 'mod only'.
                         $.post(`${TBUtils.baseDomain}/r/${subreddit}/wiki/settings/`, {
                             page: page,
                             listed: true, //hrm, may need to make this a config setting.
@@ -1757,7 +1757,7 @@ function initwrapper() {
                 //returning escaped JSON to operate safely. add this back in once
                 //everything's been audited.
 
-                //return TBUtils.unescapeJSON(data);
+                    //return TBUtils.unescapeJSON(data);
                     return data;
                 }
             })
@@ -2354,7 +2354,7 @@ function initwrapper() {
 
         TBUtils.getReasonsFromCSS = function (sub, callback) {
 
-        // If not, build a new one, getting the XML from the stylesheet
+            // If not, build a new one, getting the XML from the stylesheet
             $.get(`${TBUtils.baseDomain}/r/${sub}/about/stylesheet.json`).done(function (response) {
                 if (!response.data) {
                     callback(false);
@@ -2567,9 +2567,9 @@ function initwrapper() {
             observer.observe(target, config);
         } else {
 
-        // For new modmail we do things a bit different.
-        // We only listen for dom changes after a user interaction.
-        // Resulting in this event being fired less and less wasted requests.
+            // For new modmail we do things a bit different.
+            // We only listen for dom changes after a user interaction.
+            // Resulting in this event being fired less and less wasted requests.
             let newThingRunning = false;
             let locationHref = location.href;
             document.body.addEventListener('click', function(){
