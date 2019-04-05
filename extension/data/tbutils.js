@@ -1582,7 +1582,7 @@ function initwrapper() {
                     method,
                     data,
                 }, response => {
-                    if (response instanceof Error || response.errorThrown !== undefined) {
+                    if (response.errorThrown !== undefined) {
                         reject(response);
                     } else {
                         resolve(response);

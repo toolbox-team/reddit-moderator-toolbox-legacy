@@ -76,7 +76,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                 sendResponse({jqXHR, textStatus, errorThrown});
             });
         }).catch(error => {
-            sendResponse(error);
+            sendResponse({
+                errorThrown: error.toString()
+            });
         });
         return true;
     }
