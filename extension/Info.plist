@@ -80,6 +80,7 @@
 				<string>data/modules/achievements.js</string>
 				<string>data/modules/trouble.js</string>
 				<string>data/modules/queuetools.js</string>
+				<string>data/modules/commentlock.js</string>
 				<string>data/tbmoduleinit.js</string>
 			</array>
 		</dict>
