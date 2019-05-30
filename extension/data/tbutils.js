@@ -96,8 +96,8 @@ function initwrapper() {
 
 
         // Public variables
-        TBUtils.toolboxVersion = `3.8.2${(betaRelease) ? ' (beta)' : ''}`;
-        TBUtils.shortVersion = 382; //don't forget to change this one!  This is used for the 'new version' notification.
+        TBUtils.toolboxVersion = `3.8.3${(betaRelease) ? ' (beta)' : ''}`;
+        TBUtils.shortVersion = 383; //don't forget to change this one!  This is used for the 'new version' notification.
         TBUtils.releaseName = 'Cleaning Cockcroach';
         TBUtils.configSchema = 1;
         TBUtils.notesSchema = 6;
