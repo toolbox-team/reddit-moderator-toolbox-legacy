@@ -130,7 +130,7 @@ function betterbuttons() {
 
     self.initDistinguishToggle = function initDistinguishToggle() {
 
-    // Check for top level comments so we can add & sticky to the mix
+        // Check for top level comments so we can add & sticky to the mix
         var stickyHtml = '<li class="toggle tb-sticky-toggle"><a class="tb-sticky-comment" href="javascript:void(0)">sticky</a></li>';
 
         function addSticky() {
@@ -407,8 +407,8 @@ function betterbuttons() {
                     action = 'unlock';
                 }
 
-                $comment.find('ul.buttons li.toggle:last')
-                    .after(`<li><a href="javascript:;" tb-action="${action}" class="tb-comment-lock-button">${action}</a></li>`);
+                $comment.find('> .entry ul.buttons > li.report-button')
+                    .before(`<li><a href="javascript:;" tb-action="${action}" class="tb-comment-lock-button">${action}</a></li>`);
             }
         }
 
