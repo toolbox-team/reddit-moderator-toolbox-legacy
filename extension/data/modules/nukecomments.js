@@ -109,7 +109,7 @@ function nukecomments() {
     self.deleteThreadFromComment = function ($thread_root) {
         var ignoreMods = self.setting('ignoreMods');
 
-        var $removeButtons = $thread_root.find('form.remove-button span.option.error a.yes,a[onclick^="return big_mod_action($(this), -1)"]');
+        var $removeButtons = $thread_root.find('form.remove-button input[value="removed"] ~ span.option.error a.yes,a[onclick^="return big_mod_action($(this), -1)"]');
         TB.ui.longLoadSpinner(true, 'removing comments', 'neutral');
         self.log(`Nuking ${$removeButtons.length} comments`);
 
